@@ -11,16 +11,15 @@ let cssVariables = generateCSSVariables()
 
 let globalStyles = (theme) => ({
   html: {
-    'font-family': `Inter, ${theme('fontFamily.sans')}`,
+    'font-family': `Geologica, ${theme('fontFamily.sans')}`,
   },
   '@supports (font-variation-settings: normal)': {
     html: {
-      'font-family': `InterVar, ${theme('fontFamily.sans')}`,
+      'font-family': `Geologica, ${theme('fontFamily.sans')}`,
       'font-optical-sizing': 'auto',
     },
   },
   'html, body, button, p, span, div': {
-    fontVariationSettings: "'opsz' 24",
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
   },

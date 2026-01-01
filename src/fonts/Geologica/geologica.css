@@ -1,0 +1,16 @@
+/* Geologica Variable Font */
+@font-face {
+  font-family: 'Geologica';
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  src: url('Geologica-VariableFont.woff2') format('woff2-variations'),
+       url('Geologica-VariableFont.woff2') format('woff2');
+  src: url('Geologica-VariableFont.woff2') format('woff2') tech('variations');
+  unicode-range:
+    U+0000-05FF, /* Latin, Greek, Cyrillic, Hebrew */
+    U+0700-1FFF, /* Extended Latin, Greek, Cyrillic, Armenian, Georgian */
+    U+2C00-2FFF, /* Additional scripts */
+    U+4E00-9FFF, /* CJK (Chinese, Japanese, Korean) */
+    U+AC00-D7AF; /* Hangul (Korean) */
+}
