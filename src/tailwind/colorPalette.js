@@ -22,6 +22,7 @@ function generateColorPalette() {
     purple: {},
     'white-overlay': {},
     'black-overlay': {},
+    custom: {},
   }
 
   Object.keys(colorsData.lightMode).forEach((color) => {
@@ -30,6 +31,11 @@ function generateColorPalette() {
   Object.keys(colorsData.darkMode).forEach((color) => {
     colorPalette[`dark-${color}`] = colorsData.darkMode[color]
   })
+
+  // Add custom colors
+  if (colorsData.custom) {
+    colorPalette.custom = colorsData.custom
+  }
 
   Object.keys(colorsData.overlay.white).forEach((shade) => {
     colorPalette['white-overlay'][shade] = colorsData.overlay.white[shade]

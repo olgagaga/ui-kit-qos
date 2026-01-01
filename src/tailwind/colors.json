@@ -328,6 +328,23 @@
     "white": "#FFFFFF",
     "black": "#000000"
   },
+  "custom": {
+    "input-fill": "#F6F6F6",
+    "input-text": "#AFAFAF",
+    "input-active": "#000000",
+    "hover": "#0B237B",
+    "main": "#082CAE",
+    "error": "#FF4A4D",
+    "input": "#7C98FF",
+    "extra": "#CBD5E1",
+    "orange": "#FFA72B",
+    "gold": "#FFE981",
+    "blue": "#EDF3FA",
+    "black": "#1C1C1C",
+    "dark-bg": "#0A1028",
+    "dark": "#252F57",
+    "correct": "#339114"
+  },
   "themedVariables": {
     "light": {
       "outline": {
