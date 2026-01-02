@@ -30,26 +30,34 @@
               {{ props.label }}
             </label>
             <button
-              class="flex h-7 w-full items-center justify-between gap-2 rounded bg-surface-gray-2 px-2 py-1 transition-colors hover:bg-surface-gray-3 border border-transparent focus:border-outline-gray-4 focus:outline-none focus:ring-2 focus:ring-outline-gray-3"
-              :class="{ 'bg-surface-gray-3': isComboboxOpen }"
+              :class="buttonClasses"
               @click="() => togglePopover()"
             >
               <div class="flex items-center overflow-hidden">
                 <slot name="prefix" />
                 <span
-                  class="truncate text-base leading-5 text-ink-gray-8"
+                  :class="[
+                    'truncate text-custom-input-header',
+                    showOptions ? 'text-custom-input-active' : 'text-ink-gray-8'
+                  ]"
                   v-if="displayValue"
                 >
                   {{ displayValue }}
                 </span>
-                <span class="text-base leading-5 text-ink-gray-4" v-else>
+                <span
+                  :class="[
+                    'text-custom-input-header',
+                    showOptions ? 'text-custom-input-active' : 'text-ink-gray-4'
+                  ]"
+                  v-else
+                >
                   {{ placeholder || '' }}
                 </span>
                 <slot name="suffix" />
               </div>
               <FeatherIcon
                 name="chevron-down"
-                class="h-4 w-4 text-ink-gray-5"
+                :class="['h-7 w-7', arrowIconClasses]"
                 aria-hidden="true"
               />
             </button>
@@ -229,6 +237,23 @@ const props = withDefaults(defineProps<AutocompleteProps>(), {
   compareFn: (a, b) => a.value === b.value,
 })
 const emit = defineEmits(['update:modelValue', 'update:query', 'change'])
+
+// Button classes based on open/focus state
+const buttonClasses = computed(() => {
+  const baseClasses = 'flex h-[2.188rem] w-full items-center justify-between gap-2 rounded-[0.625rem] px-3 py-1 transition-colors border'
+
+  if (showOptions.value) {
+    // Active state (when opened/focused) - no hover effect
+    return `${baseClasses} bg-white border-custom-input-text focus:border-outline-gray-4`
+  } else {
+    // Static state (default)
+    return `${baseClasses} bg-custom-input-fill hover:bg-surface-gray-2 border-transparent`
+  }
+})
+
+const arrowIconClasses = computed(() => {
+  return showOptions.value ? 'text-custom-input-active' : 'text-custom-input-text'
+})
 
 const searchInput = ref()
 const showOptions = ref(false)
