@@ -8,20 +8,33 @@
         padding && !disabled,
     }"
   >
-    <input
-      class="rounded-sm mt-[1px] bg-surface-white"
-      :class="inputClasses"
-      type="checkbox"
-      :disabled="disabled"
-      :id="htmlId"
-      :checked="Boolean(modelValue)"
-      @change="
-        (e) =>
-          $emit('update:modelValue', (e.target as HTMLInputElement).checked)
-      "
-      v-bind="attrs"
-    />
-    <label class="block" :class="labelClasses" v-if="label" :for="htmlId">
+    <div class="relative inline-flex items-center">
+      <input
+        class="sr-only peer"
+        type="checkbox"
+        :disabled="disabled"
+        :id="htmlId"
+        :checked="Boolean(modelValue)"
+        @change="
+          (e) =>
+            $emit('update:modelValue', (e.target as HTMLInputElement).checked)
+        "
+        v-bind="attrs"
+      />
+      <label
+        :for="htmlId"
+        class="rounded-sm"
+        :class="boxClasses"
+      >
+        <Check
+          :size="12"
+          color="white"
+          class="transition-opacity shrink-0"
+          :class="modelValue ? 'opacity-100' : 'opacity-0'"
+        />
+      </label>
+    </div>
+    <label class="block cursor-pointer" :class="labelClasses" v-if="label" :for="htmlId">
       {{ label }}
     </label>
   </div>
@@ -29,6 +42,7 @@
 <script lang="ts" setup>
 import { computed, useAttrs } from 'vue'
 import { useId } from '../../utils/useId'
+import { Check } from '../icons/icons'
 import type { CheckboxProps } from './types'
 
 const props = withDefaults(defineProps<CheckboxProps>(), {
@@ -51,22 +65,23 @@ const labelClasses = computed(() => {
   ]
 })
 
-const inputClasses = computed(() => {
-  let baseClasses = props.disabled
-    ? 'border-outline-gray-2 bg-surface-menu-bar text-ink-gray-3'
-    : 'border-outline-gray-4 text-ink-gray-9 hover:border-outline-gray-5 focus:ring-offset-0 focus:border-outline-gray-8 active:border-outline-gray-6 transition'
+const boxClasses = computed(() => {
+  let sizeClasses = 'w-[14px] h-[14px] border flex items-center justify-center'
 
-  let interactionClasses = props.disabled
+  let stateClasses = props.disabled
+    ? props.modelValue
+      ? 'border-custom-inactive bg-custom-hover cursor-not-allowed'
+      : 'border-custom-input-text bg-custom-inactive cursor-not-allowed'
+    : props.modelValue
+      ? 'border-custom-main bg-custom-main cursor-pointer'
+      : 'border-custom-input-text bg-white hover:border-custom-input-active cursor-pointer'
+
+  let focusClasses = props.disabled
     ? ''
     : props.padding
-      ? 'focus:ring-0'
-      : 'hover:shadow-sm focus:ring-0 focus-visible:ring-2 focus-visible:ring-outline-gray-3 active:bg-surface-gray-2'
+      ? 'peer-focus:ring-0'
+      : 'peer-focus:ring-0 peer-focus-visible:ring-2 peer-focus-visible:ring-outline-gray-3'
 
-  let sizeClasses = {
-    sm: 'w-3.5 h-3.5',
-    md: 'w-4 h-4',
-  }[props.size]
-
-  return [baseClasses, interactionClasses, sizeClasses]
+  return [sizeClasses, stateClasses, focusClasses]
 })
 </script>
