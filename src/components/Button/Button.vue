@@ -11,10 +11,11 @@
       <LoadingIndicator
         v-if="loading"
         :class="{
-          'h-3 w-3': size == 'sm',
-          'h-[13.5px] w-[13.5px]': size == 'md',
-          'h-[15px] w-[15px]': size == 'lg',
-          'h-4.5 w-4.5': size == 'xl' || size == '2xl',
+          'h-4 w-4': size == 'sm',
+          'h-4.5 w-4.5': size == 'md',
+          'h-5 w-5': size == 'lg',
+          'h-6 w-6': size == 'xl',
+          'h-7 w-7': size == '2xl',
         }"
       />
       <slot name="prefix" v-else-if="$slots['prefix'] || iconLeft">
@@ -72,9 +73,9 @@ import Tooltip from '../Tooltip/Tooltip.vue'
 defineOptions({ inheritAttrs: false })
 
 const props = withDefaults(defineProps<ButtonProps>(), {
-  theme: 'gray',
+  theme: 'main',
   size: 'sm',
-  variant: 'subtle',
+  variant: 'solid',
   loading: false,
   disabled: false,
 })
@@ -89,6 +90,7 @@ const buttonClasses = computed(() => {
     green:
       'text-ink-white bg-surface-green-3 hover:bg-green-700 active:bg-green-800',
     red: 'text-ink-white bg-surface-red-5 hover:bg-surface-red-6 active:bg-surface-red-7',
+    main: 'text-white bg-custom-main hover:bg-custom-hover hover:shadow-none shadow-[0_10px_15px_0_rgba(33,81,255,0.38)]',
   }[props.theme]
 
   let subtleClasses = {
@@ -97,6 +99,7 @@ const buttonClasses = computed(() => {
     green:
       'text-green-800 bg-surface-green-2 hover:bg-green-200 active:bg-green-300',
     red: 'text-red-700 bg-surface-red-2 hover:bg-surface-red-3 active:bg-surface-red-4',
+    main: 'text-custom-input-active bg-custom-inactive hover:bg-custom-inactive-dark',
   }[props.theme]
 
   let outlineClasses = {
@@ -105,6 +108,7 @@ const buttonClasses = computed(() => {
     green:
       'text-green-800 bg-surface-white border border-outline-green-2 hover:border-green-500 active:border-green-500 active:bg-green-300',
     red: 'text-red-700 bg-surface-white border border-outline-red-1 hover:border-outline-red-2 active:border-outline-red-2 active:bg-surface-red-3',
+    main: 'text-custom-input-active bg-white border border-custom-input-text hover:bg-custom-inactive',
   }[props.theme]
 
   let ghostClasses = {
@@ -113,13 +117,20 @@ const buttonClasses = computed(() => {
     green:
       'text-green-800 bg-transparent hover:bg-green-200 active:bg-green-300',
     red: 'text-red-700 bg-transparent hover:bg-surface-red-3 active:bg-surface-red-4',
+    main: 'text-custom-input-active bg-transparent hover:bg-custom-inactive',
   }[props.theme]
+
+  // Alert, extra, and gold variants are theme-independent
+  let alertClasses = 'text-white bg-custom-error hover:bg-custom-error-dark'
+  let extraClasses = 'text-custom-input-active bg-custom-blue hover:bg-custom-blue-dark'
+  let goldClasses = 'text-custom-input-active bg-custom-gold hover:bg-custom-gold-dark shadow-[0_10px_15px_0_rgba(255,193,7,0.38)] hover:shadow-none'
 
   let focusClasses = {
     gray: 'focus-visible:ring focus-visible:ring-outline-gray-3',
     blue: 'focus-visible:ring focus-visible:ring-blue-400',
     green: 'focus-visible:ring focus-visible:ring-outline-green-2',
     red: 'focus-visible:ring focus-visible:ring-outline-red-2',
+    main: 'focus-visible:ring focus-visible:ring-custom-main',
   }[props.theme]
 
   let variantClasses = {
@@ -127,52 +138,76 @@ const buttonClasses = computed(() => {
     solid: solidClasses,
     outline: outlineClasses,
     ghost: ghostClasses,
+    alert: alertClasses,
+    extra: extraClasses,
+    gold: goldClasses,
   }[props.variant]
 
   let themeVariant: ThemeVariant = `${props.theme}-${props.variant}`
 
-  let disabledClassesMap: Record<ThemeVariant, string> = {
+  let disabledClassesMap: Partial<Record<ThemeVariant, string>> = {
     'gray-solid': 'bg-surface-gray-2 text-ink-gray-4',
     'gray-subtle': 'bg-surface-gray-2 text-ink-gray-4',
     'gray-outline':
       'bg-surface-gray-2 text-ink-gray-4 border border-outline-gray-2',
     'gray-ghost': 'text-ink-gray-4',
+    'gray-alert': 'bg-surface-gray-2 text-ink-gray-4',
+    'gray-extra': 'bg-surface-gray-2 text-ink-gray-4',
+    'gray-gold': 'bg-surface-gray-2 text-ink-gray-4',
 
     'blue-solid': 'bg-blue-300 text-ink-white',
     'blue-subtle': 'bg-surface-blue-2 text-ink-blue-link',
     'blue-outline':
       'bg-surface-blue-2 text-ink-blue-link border border-outline-blue-1',
     'blue-ghost': 'text-ink-blue-link',
+    'blue-alert': 'bg-surface-blue-2 text-ink-blue-link',
+    'blue-extra': 'bg-surface-blue-2 text-ink-blue-link',
+    'blue-gold': 'bg-surface-blue-2 text-ink-blue-link',
 
     'green-solid': 'bg-surface-green-2 text-ink-green-2',
     'green-subtle': 'bg-surface-green-2 text-ink-green-2',
     'green-outline':
       'bg-surface-green-2 text-ink-green-2 border border-outline-green-2',
     'green-ghost': 'text-ink-green-2',
+    'green-alert': 'bg-surface-green-2 text-ink-green-2',
+    'green-extra': 'bg-surface-green-2 text-ink-green-2',
+    'green-gold': 'bg-surface-green-2 text-ink-green-2',
 
     'red-solid': 'bg-surface-red-2 text-ink-red-2',
     'red-subtle': 'bg-surface-red-2 text-ink-red-2',
     'red-outline':
       'bg-surface-red-2 text-ink-red-2 border border-outline-red-1',
     'red-ghost': 'text-ink-red-2',
+    'red-alert': 'bg-surface-red-2 text-ink-red-2',
+    'red-extra': 'bg-surface-red-2 text-ink-red-2',
+    'red-gold': 'bg-surface-red-2 text-ink-red-2',
+
+    'main-solid': 'bg-surface-gray-2 text-ink-gray-4',
+    'main-subtle': 'bg-surface-gray-2 text-ink-gray-4',
+    'main-outline':
+      'bg-surface-gray-2 text-ink-gray-4 border border-outline-gray-2',
+    'main-ghost': 'text-ink-gray-4',
+    'main-alert': 'bg-surface-gray-2 text-ink-gray-4',
+    'main-extra': 'bg-surface-gray-2 text-ink-gray-4',
+    'main-gold': 'bg-surface-gray-2 text-ink-gray-4',
   }
   let disabledClasses = disabledClassesMap[themeVariant]
 
   let sizeClasses = {
-    sm: 'h-7 text-base px-2 rounded',
-    md: 'h-8 text-base font-medium px-2.5 rounded',
-    lg: 'h-10 text-lg font-medium px-3 rounded-md',
-    xl: 'h-11.5 text-xl font-medium px-3.5 rounded-lg',
-    '2xl': 'h-13 text-2xl font-medium px-3.5 rounded-xl',
+    sm: 'h-10 text-custom-button px-[1rem] py-[0.75rem] rounded-[0.75rem]',
+    md: 'h-11 text-base font-medium px-2.5 rounded',
+    lg: 'h-12 text-lg font-medium px-3 rounded-md',
+    xl: 'h-14 text-xl font-medium px-3.5 rounded-lg',
+    '2xl': 'h-16 text-2xl font-medium px-3.5 rounded-xl',
   }[props.size]
 
   if (isIconButton.value) {
     sizeClasses = {
-      sm: 'h-7 w-7 rounded',
-      md: 'h-8 w-8 rounded',
-      lg: 'h-10 w-10 rounded-md',
-      xl: 'h-11.5 w-11.5 rounded-lg',
-      '2xl': 'h-13 w-13 rounded-xl',
+      sm: 'h-10 w-10 rounded',
+      md: 'h-11 w-11 rounded',
+      lg: 'h-12 w-12 rounded-md',
+      xl: 'h-14 w-14 rounded-lg',
+      '2xl': 'h-16 w-16 rounded-xl',
     }[props.size]
   }
 

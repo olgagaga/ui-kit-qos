@@ -335,15 +335,20 @@
     "hover": "#0B237B",
     "main": "#082CAE",
     "error": "#FF4A4D",
+    "error-dark": "#E63E41",
     "input": "#7C98FF",
     "extra": "#CBD5E1",
     "orange": "#FFA72B",
     "gold": "#FFE981",
+    "gold-dark": "#F5D951",
     "blue": "#EDF3FA",
+    "blue-dark": "#D8E6F4",
     "black": "#1C1C1C",
     "dark-bg": "#0A1028",
     "dark": "#252F57",
-    "correct": "#339114"
+    "correct": "#339114",
+    "inactive": "#EFF1F3",
+    "inactive-dark": "#E0E3E6"
   },
   "themedVariables": {
     "light": {

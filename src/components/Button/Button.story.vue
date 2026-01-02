@@ -1,25 +1,34 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { Button } from './index'
-const state = reactive({
-  theme: 'gray',
+import type { ButtonProps } from './types'
+
+const state = reactive<{
+  theme: ButtonProps['theme']
+  size: ButtonProps['size']
+  label: string
+  loading: boolean
+  loadingText?: string
+  disabled: boolean
+  link?: string
+  tooltip: string
+}>({
+  theme: 'main',
   size: 'sm',
   label: 'Button',
   loading: false,
-  loadingText: null,
   disabled: false,
-  link: null,
   tooltip: 'Hover for more!',
 })
-const variants = ['solid', 'subtle', 'outline', 'ghost']
-const themes = ['gray', 'blue', 'green', 'red']
-const sizes = ['sm', 'md', 'lg', 'xl', '2xl']
+const variants: ButtonProps['variant'][] = ['solid', 'subtle', 'outline', 'ghost', 'alert', 'extra', 'gold']
+const themes: ButtonProps['theme'][] = ['main', 'gray', 'blue', 'green', 'red']
+const sizes: ButtonProps['size'][] = ['sm', 'md', 'lg', 'xl', '2xl']
 </script>
 
 <template>
   <Story :layout="{ type: 'grid', width: 300 }">
     <Variant v-for="variant in variants" :key="variant" :title="variant">
-      <div class="p-1">
+      <div class="p-5">
         <Button :variant="variant" v-bind="state">{{ state.label }}</Button>
       </div>
     </Variant>

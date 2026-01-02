@@ -1,9 +1,9 @@
 import { type RouterLinkProps } from 'vue-router'
 import { type Component } from 'vue'
 
-type Theme = 'gray' | 'blue' | 'green' | 'red'
+type Theme = 'gray' | 'blue' | 'green' | 'red' | 'main'
 type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl'
-type Variant = 'solid' | 'subtle' | 'outline' | 'ghost'
+type Variant = 'solid' | 'subtle' | 'outline' | 'ghost' | 'alert' | 'extra' | 'gold'
 
 export interface ButtonProps {
   theme?: Theme
@@ -20,5 +20,9 @@ export interface ButtonProps {
   route?: RouterLinkProps['to']
   link?: string
 }
+
+export const DEFAULT_THEME: Theme = 'main'
+export const DEFAULT_SIZE: Size = 'sm'
+export const DEFAULT_VARIANT: Variant = 'solid'
 
 export type ThemeVariant = `${Theme}-${Variant}`
