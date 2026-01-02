@@ -1,7 +1,7 @@
 <template>
   <div
     class="relative inline-block shrink-0"
-    :class="[sizeClasses, shapeClasses]"
+    :class="[sizeClasses, shapeClasses, borderClasses]"
   >
     <img
       v-if="image && !imgFetchError"
@@ -45,6 +45,7 @@ const imgFetchError = ref(false)
 const props = withDefaults(defineProps<AvatarProps>(), {
   size: 'md',
   shape: 'circle',
+  variant: 'default',
 })
 
 const shapeClasses = computed(() => {
@@ -121,6 +122,15 @@ const iconClasses = computed(() => {
     '2xl': 'h-5 w-5',
     '3xl': 'h-5 w-5',
   }[props.size]
+})
+
+const borderClasses = computed(() => {
+  if (props.variant === 'default') {
+    return 'border border-custom-extra'
+  } else if (props.variant === 'label') {
+    return 'border border-custom-main'
+  }
+  return ''
 })
 
 function handleImageError(err) {
