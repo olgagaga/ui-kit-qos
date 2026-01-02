@@ -103,6 +103,7 @@ import { ExampleIcon } from '@/components/icons'
               <h4 class="text-sm font-medium mb-2">
                 When frappe-ui is used as a library:
               </h4>
+
               <pre
                 class="bg-gray-100 p-4 rounded text-xs overflow-x-auto"
               ><code>&lt;script setup&gt;

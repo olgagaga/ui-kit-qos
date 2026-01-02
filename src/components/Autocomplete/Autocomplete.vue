@@ -29,10 +29,7 @@
             <label v-if="props.label" class="block text-xs text-ink-gray-5">
               {{ props.label }}
             </label>
-            <button
-              :class="buttonClasses"
-              @click="() => togglePopover()"
-            >
+            <button :class="buttonClasses" @click="() => togglePopover()">
               <div class="flex items-center overflow-hidden">
                 <slot name="prefix" />
                 <span
@@ -44,7 +41,9 @@
                 <span
                   :class="[
                     'text-custom-input-header',
-                    showOptions ? 'text-custom-input-active' : 'text-ink-gray-4'
+                    showOptions
+                      ? 'text-custom-input-active'
+                      : 'text-ink-gray-4',
                   ]"
                   v-else
                 >
@@ -92,8 +91,15 @@
                       v-if="props.loading"
                       class="h-4 w-4 text-custom-input-text"
                     />
-                    <button v-else @click="clearAll" class="hover:opacity-70 transition-opacity">
-                      <FeatherIcon name="x" class="w-4 h-4 text-custom-input-text" />
+                    <button
+                      v-else
+                      @click="clearAll"
+                      class="hover:opacity-70 transition-opacity"
+                    >
+                      <FeatherIcon
+                        name="x"
+                        class="w-4 h-4 text-custom-input-text"
+                      />
                     </button>
                   </div>
                 </div>
@@ -129,7 +135,9 @@
                       },
                     ]"
                   >
-                    <div class="flex flex-1 gap-2 overflow-hidden items-center h-[1.938rem]">
+                    <div
+                      class="flex flex-1 gap-2 overflow-hidden items-center h-[1.938rem]"
+                    >
                       <div
                         v-if="$slots['item-prefix'] || props.multiple"
                         class="flex flex-shrink-0"
@@ -138,13 +146,10 @@
                           name="item-prefix"
                           v-bind="{ active, selected, option }"
                         >
-                          <FeatherIcon
-                            name="check"
+                          <Check
                             v-if="isOptionSelected(option)"
-                            :class="[
-                              'h-4 w-4',
-                              active ? 'text-custom-main' : 'text-custom-input-active'
-                            ]"
+                            :size="16"
+                            :color="'#082CAE'"
                           />
                           <div v-else class="h-4 w-4" />
                         </slot>
@@ -222,6 +227,7 @@ import { Popover } from '../Popover'
 import { Button } from '../Button'
 import FeatherIcon from '../FeatherIcon.vue'
 import LoadingIndicator from '../LoadingIndicator.vue'
+import { Check } from '../icons'
 import type {
   AutocompleteOptionGroup,
   AutocompleteOption,
@@ -239,7 +245,8 @@ const emit = defineEmits(['update:modelValue', 'update:query', 'change'])
 
 // Button classes based on open/focus state or selected value
 const buttonClasses = computed(() => {
-  const baseClasses = 'flex h-[2.188rem] w-full items-center justify-between gap-2 rounded-[0.625rem] px-3 py-1 transition-colors border'
+  const baseClasses =
+    'flex h-[2.188rem] w-full items-center justify-between gap-2 rounded-[0.625rem] px-3 py-1 transition-colors border'
   const hasValue = displayValue.value && displayValue.value !== ''
 
   if (showOptions.value || hasValue) {
@@ -253,7 +260,9 @@ const buttonClasses = computed(() => {
 
 const arrowIconClasses = computed(() => {
   const hasValue = displayValue.value && displayValue.value !== ''
-  return showOptions.value || hasValue ? 'text-custom-input-active' : 'text-custom-input-text'
+  return showOptions.value || hasValue
+    ? 'text-custom-input-active'
+    : 'text-custom-input-text'
 })
 
 const searchInput = ref()
