@@ -73,12 +73,12 @@
             >
               <div
                 v-if="!hideSearch"
-                class="sticky top-0 z-10 flex items-stretch space-x-1.5 bg-surface-modal py-1.5"
+                class="sticky top-0 z-10 flex items-stretch bg-white mb-[0.375rem]"
               >
                 <div class="relative w-full">
                   <ComboboxInput
                     ref="searchInput"
-                    class="form-input w-full focus:bg-surface-gray-3 hover:bg-surface-gray-4 text-ink-gray-8"
+                    class="w-full h-[2.188rem] px-[0.75rem] text-custom-input-header text-custom-input-active bg-custom-input-fill border-2 border-transparent rounded-[0.625rem] transition-all placeholder:text-custom-input-text focus:bg-white focus:border-custom-input focus:outline-none"
                     type="text"
                     :value="query"
                     @change="query = $event.target.value"
@@ -86,14 +86,14 @@
                     placeholder="Search"
                   />
                   <div
-                    class="absolute right-0 inline-flex h-7 w-7 items-center justify-center"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center justify-center"
                   >
                     <LoadingIndicator
                       v-if="props.loading"
-                      class="h-4 w-4 text-ink-gray-5"
+                      class="h-4 w-4 text-custom-input-text"
                     />
-                    <button v-else @click="clearAll">
-                      <FeatherIcon name="x" class="w-4 text-ink-gray-8" />
+                    <button v-else @click="clearAll" class="hover:opacity-70 transition-opacity">
+                      <FeatherIcon name="x" class="w-4 h-4 text-custom-input-text" />
                     </button>
                   </div>
                 </div>
