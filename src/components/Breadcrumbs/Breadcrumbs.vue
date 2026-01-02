@@ -23,24 +23,19 @@
           </template>
         </Button>
       </Dropdown>
-      <span class="ml-1 mr-0.5 text-base text-ink-gray-4" aria-hidden="true">
-        /
-      </span>
+      <Previous :size="16" color="#1C1C1C" class="pr-2" />
     </template>
     <div
       class="flex min-w-0 items-center overflow-hidden text-ellipsis whitespace-nowrap"
     >
       <template v-for="(item, i) in crumbs" :key="item.label">
+        <Previous :size="25" color="#1C1C1C" class="pr-2" />
         <router-link
           v-if="item.route"
           :to="item.route"
           @click="item.onClick ? item.onClick() : null"
-          class="flex items-center rounded px-0.5 py-1 text-lg font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-outline-gray-3"
-          :class="[
-            i == crumbs.length - 1
-              ? 'text-ink-gray-9'
-              : 'text-ink-gray-5 hover:text-ink-gray-7',
-          ]"
+          class="flex items-center rounded pr-2 py-1 text-custom-black focus:outline-none focus-visible:ring-2 focus-visible:ring-outline-gray-3"
+          style="font-size: 13px; font-weight: 400; line-height: 135%;"
         >
           <slot name="prefix" :item="item" />
           <span>
@@ -51,12 +46,8 @@
         <button
           v-else
           @click="item.onClick ? item.onClick() : null"
-          class="flex items-center rounded px-0.5 py-1 text-lg font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-outline-gray-3"
-          :class="[
-            i == crumbs.length - 1
-              ? 'text-ink-gray-9'
-              : 'text-ink-gray-5 hover:text-ink-gray-7',
-          ]"
+          class="flex items-center rounded pr-2 py-1 text-custom-black focus:outline-none focus-visible:ring-2 focus-visible:ring-outline-gray-3"
+          style="font-size: 13px; font-weight: 400; line-height: 135%;"
         >
           <slot name="prefix" :item="item" />
           <span>
@@ -64,13 +55,6 @@
           </span>
           <slot name="suffix" :item="item" />
         </button>
-        <span
-          v-if="i != crumbs.length - 1"
-          class="mx-0.5 text-base text-ink-gray-4"
-          aria-hidden="true"
-        >
-          /
-        </span>
       </template>
     </div>
   </div>
@@ -81,6 +65,7 @@ import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { Dropdown } from '../Dropdown'
 import { Button } from '../Button'
+import { Previous } from '../icons/icons'
 import type { BreadcrumbsProps } from './types'
 
 const props = defineProps<BreadcrumbsProps>()
