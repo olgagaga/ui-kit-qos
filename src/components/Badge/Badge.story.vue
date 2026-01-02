@@ -2,12 +2,12 @@
 import { reactive } from 'vue'
 import Badge from './Badge.vue'
 const state = reactive({
-  theme: 'gray',
-  size: 'sm',
+  theme: 'main',
+  size: 'md',
   label: 'Badge',
 })
 const variants = ['solid', 'subtle', 'outline', 'ghost']
-const themes = ['gray', 'blue', 'green', 'orange', 'red']
+const themes = ['gray', 'blue', 'green', 'orange', 'red', 'main']
 const sizes = ['sm', 'md', 'lg']
 </script>
 

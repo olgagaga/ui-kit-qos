@@ -36,6 +36,7 @@ const classes = computed(() => {
     green: 'text-ink-green-1 bg-surface-green-3',
     orange: 'text-ink-amber-1 bg-surface-amber-2',
     red: 'text-ink-red-1 bg-surface-red-4',
+    main: 'text-white bg-custom-main'
   }[props.theme]
 
   let subtleClasses = {
@@ -44,6 +45,7 @@ const classes = computed(() => {
     green: 'text-ink-green-3 bg-surface-green-2',
     orange: 'text-ink-amber-3 bg-surface-amber-1',
     red: 'text-ink-red-4 bg-surface-red-1',
+    main: 'text-custom-input-active bg-custom-blue',
   }[props.theme]
 
   let outlineClasses = {
@@ -52,6 +54,7 @@ const classes = computed(() => {
     green: 'text-ink-green-3 bg-transparent border border-outline-green-2',
     orange: 'text-ink-amber-3 bg-transparent border border-outline-amber-2',
     red: 'text-ink-red-4 bg-transparent border border-outline-red-2',
+    main: 'text-custom-input-active bg-transparent border border-outline-custom-main'
   }[props.theme]
 
   let ghostClasses = {
@@ -60,6 +63,7 @@ const classes = computed(() => {
     green: 'text-ink-green-3 bg-transparent',
     orange: 'text-ink-amber-3 bg-transparent',
     red: 'text-ink-red-4 bg-transparent',
+    main: 'text-custom-input-active bg-transparent'
   }[props.theme]
 
   let variantClasses = {
@@ -70,9 +74,9 @@ const classes = computed(() => {
   }[props.variant]
 
   let sizeClasses = {
-    sm: 'h-4 text-xs px-1.5',
-    md: 'h-5 text-xs px-1.5',
-    lg: 'h-6 text-sm px-2',
+    sm: 'h-[1.25rem] text-custom-button px-[0.6rem] py-[0.6rem]',
+    md: 'h-[1.5rem] text-custom-button px-[0.7rem] py-[0.7rem]',
+    lg: 'h-[1.75rem] text-custom-button px-[0.8rem] py-[0.8rem]',
   }[props.size]
 
   return [variantClasses, sizeClasses]
