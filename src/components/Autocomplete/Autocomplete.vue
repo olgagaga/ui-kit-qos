@@ -36,10 +36,7 @@
               <div class="flex items-center overflow-hidden">
                 <slot name="prefix" />
                 <span
-                  :class="[
-                    'truncate text-custom-input-header',
-                    showOptions ? 'text-custom-input-active' : 'text-ink-gray-8'
-                  ]"
+                  class="truncate text-custom-input-header text-custom-input-active"
                   v-if="displayValue"
                 >
                   {{ displayValue }}
@@ -67,12 +64,11 @@
       <template #body="{ isOpen, togglePopover }">
         <div v-show="isOpen">
           <div
-            class="relative mt-1 rounded-lg bg-surface-modal text-base shadow-2xl"
+            class="relative mt-1 rounded-[0.75rem] bg-white text-base shadow-custom-card-shadow-1"
             :class="bodyClasses"
           >
             <ComboboxOptions
-              class="max-h-[15rem] overflow-y-auto px-1.5 pb-1.5"
-              :class="{ 'pt-1.5': hideSearch }"
+              class="max-h-[15rem] overflow-y-auto p-[0.375rem] space-y-[0.375rem]"
               static
             >
               <div
@@ -126,14 +122,14 @@
                 >
                   <li
                     :class="[
-                      'flex cursor-pointer items-center justify-between rounded px-2.5 py-1.5 text-base',
+                      'flex cursor-pointer items-center justify-between rounded-[0.75rem] h-[2.438rem] px-[0.75rem] text-base text-custom-input-active transition-all',
                       {
-                        'bg-surface-gray-3': active,
+                        'bg-custom-blue text-custom-main font-semibold': active,
                         'opacity-50': option.disabled,
                       },
                     ]"
                   >
-                    <div class="flex flex-1 gap-2 overflow-hidden items-center">
+                    <div class="flex flex-1 gap-2 overflow-hidden items-center h-[1.938rem]">
                       <div
                         v-if="$slots['item-prefix'] || props.multiple"
                         class="flex flex-shrink-0"
@@ -145,12 +141,15 @@
                           <FeatherIcon
                             name="check"
                             v-if="isOptionSelected(option)"
-                            class="h-4 w-4 text-ink-gray-7"
+                            :class="[
+                              'h-4 w-4',
+                              active ? 'text-custom-main' : 'text-custom-input-active'
+                            ]"
                           />
                           <div v-else class="h-4 w-4" />
                         </slot>
                       </div>
-                      <span class="flex-1 truncate text-ink-gray-7">
+                      <span class="flex-1 truncate">
                         {{ getLabel(option) }}
                       </span>
                     </div>
@@ -238,12 +237,13 @@ const props = withDefaults(defineProps<AutocompleteProps>(), {
 })
 const emit = defineEmits(['update:modelValue', 'update:query', 'change'])
 
-// Button classes based on open/focus state
+// Button classes based on open/focus state or selected value
 const buttonClasses = computed(() => {
   const baseClasses = 'flex h-[2.188rem] w-full items-center justify-between gap-2 rounded-[0.625rem] px-3 py-1 transition-colors border'
+  const hasValue = displayValue.value && displayValue.value !== ''
 
-  if (showOptions.value) {
-    // Active state (when opened/focused) - no hover effect
+  if (showOptions.value || hasValue) {
+    // Active state (when opened/focused or has selected value) - no hover effect
     return `${baseClasses} bg-white border-custom-input-text focus:border-outline-gray-4`
   } else {
     // Static state (default)
@@ -252,7 +252,8 @@ const buttonClasses = computed(() => {
 })
 
 const arrowIconClasses = computed(() => {
-  return showOptions.value ? 'text-custom-input-active' : 'text-custom-input-text'
+  const hasValue = displayValue.value && displayValue.value !== ''
+  return showOptions.value || hasValue ? 'text-custom-input-active' : 'text-custom-input-text'
 })
 
 const searchInput = ref()

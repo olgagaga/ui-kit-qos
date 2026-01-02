@@ -8,9 +8,11 @@ export default {
     './src/**/*.{vue,js,ts,jsx,tsx}',
     './frappe/**/*.{vue,js,ts,jsx,tsx}',
   ],
-  // TODO: is it a good approach?
   theme: {
     extend: {
+      boxShadow: {
+        'custom-card-shadow-1': '3.9px 15.59px 23.39px 0px rgba(0, 0, 0, 0.12)',
+      },
       fontSize: {
         // Custom class: 'text-custom-input-header'
         'custom-input-header': [
