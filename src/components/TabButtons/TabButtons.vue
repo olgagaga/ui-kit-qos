@@ -14,6 +14,7 @@
         <Button
           @click="button.onClick"
           v-bind="button"
+          theme="gray"
           class="!h-6.5"
           :class="[
             active ? 'ring-outline-gray-2 focus-visible:ring' : '',
@@ -21,8 +22,8 @@
             button.disabled
               ? ''
               : checked
-                ? ' text-ink-gray-8 shadow'
-                : '!text-ink-gray-5',
+                ? '!text-ink-gray-8 shadow'
+                : '!text-white',
           ]"
         >
           <RadioGroupLabel
