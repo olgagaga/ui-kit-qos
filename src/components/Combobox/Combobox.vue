@@ -290,8 +290,13 @@ defineExpose({
       :open="isOpen"
     >
       <ComboboxAnchor
-        class="flex h-7 w-full items-center justify-between gap-2 rounded bg-surface-gray-2 px-2 py-1 transition-colors hover:bg-surface-gray-3 border border-transparent focus-within:border-outline-gray-4 focus-within:ring-2 focus-within:ring-outline-gray-3"
-        :class="{ 'opacity-50 pointer-events-none': disabled }"
+        class="flex h-[2.188rem] w-full items-center justify-between gap-2 rounded-[0.625rem] px-3 py-1 transition-colors border"
+        :class="[
+          { 'opacity-50 pointer-events-none': disabled },
+          isOpen || internalModelValue
+            ? 'bg-white border-custom-input-text focus-within:border-outline-gray-4'
+            : 'bg-custom-input-fill hover:bg-surface-gray-2 border-transparent',
+        ]"
         @click="handleClick"
       >
         <div class="flex items-center gap-2 flex-1 overflow-hidden">
@@ -301,40 +306,46 @@ defineExpose({
             @input="handleInputChange"
             @focus="handleFocus"
             @blur="handleBlur"
-            class="bg-transparent p-0 focus:outline-0 border-0 focus:border-0 focus:ring-0 text-base text-ink-gray-8 h-full placeholder:text-ink-gray-4 w-full"
+            class="bg-transparent p-0 focus:outline-0 border-0 focus:border-0 focus:ring-0 text-custom-input-header text-custom-input-active h-full placeholder:text-custom-input-text w-full"
             :placeholder="placeholder || ''"
             :disabled="disabled"
             autocomplete="off"
           />
         </div>
         <ComboboxTrigger :disabled="disabled">
-          <LucideChevronDown class="h-4 w-4 text-ink-gray-5" />
+          <LucideChevronDown
+            class="h-7 w-7"
+            :class="
+              isOpen || internalModelValue
+                ? 'text-custom-input-active'
+                : 'text-custom-input-text'
+            "
+          />
         </ComboboxTrigger>
       </ComboboxAnchor>
       <ComboboxPortal>
         <ComboboxContent
-          class="z-10 min-w-[--reka-combobox-trigger-width] mt-1 bg-surface-modal overflow-hidden rounded-lg shadow-2xl"
+          class="z-10 min-w-[--reka-combobox-trigger-width] mt-1 bg-white overflow-hidden rounded-[0.75rem] shadow-custom-card-shadow-1"
           position="popper"
           @openAutoFocus.prevent
           @closeAutoFocus.prevent
           :align="props.placement || 'start'"
         >
           <ComboboxViewport
-            class="max-h-60 overflow-auto pb-1.5"
-            :class="{ 'px-1.5 pt-1.5': !isGroup(filteredOptions[0]) }"
+            class="max-h-[15rem] overflow-y-auto p-[0.375rem] space-y-[0.375rem]"
           >
             <ComboboxEmpty
-              class="text-ink-gray-5 text-base text-center py-1.5 px-2.5"
+              class="text-ink-gray-5 text-base rounded-md px-2.5 py-1.5"
             >
-              No results found for "{{ searchTerm }}"
+              No results found
             </ComboboxEmpty>
             <template
               v-for="(optionOrGroup, index) in filteredOptions"
               :key="index"
             >
-              <ComboboxGroup class="px-1.5" v-if="isGroup(optionOrGroup)">
+              <ComboboxGroup v-if="isGroup(optionOrGroup)">
                 <ComboboxLabel
-                  class="px-2.5 pt-3 pb-1.5 text-sm font-medium text-ink-gray-5 sticky top-0 bg-surface-modal z-10"
+                  class="sticky top-0 truncate bg-white px-2.5 py-1.5 text-sm font-medium text-ink-gray-5"
                 >
                   {{ optionOrGroup.group }}
                 </ComboboxLabel>
@@ -343,7 +354,7 @@ defineExpose({
                   :key="`${index}-${idx}`"
                   :value="getKey(option)"
                   :disabled="isDisabled(option)"
-                  class="text-base leading-none text-ink-gray-7 rounded flex items-center h-7 px-2.5 py-1.5 relative select-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-surface-gray-3"
+                  class="flex cursor-pointer items-center justify-between rounded-[0.75rem] h-[2.438rem] px-[0.75rem] text-base text-custom-input-active transition-all relative select-none outline-none border-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none data-[highlighted]:bg-custom-blue data-[highlighted]:text-custom-main data-[highlighted]:font-semibold"
                 >
                   <slot
                     v-if="getSlotName(option)"
@@ -356,14 +367,21 @@ defineExpose({
                     :is="getRenderFunction(option)"
                   />
                   <template v-else>
-                    <span class="flex items-center gap-2 pr-6 flex-1">
-                      <RenderIcon :icon="getIcon(option)" />
-                      {{ getLabel(option) }}
-                    </span>
-                    <ComboboxItemIndicator
-                      class="absolute right-0 w-6 inline-flex items-center justify-center"
+                    <div
+                      class="flex flex-1 gap-2 overflow-hidden items-center h-[1.938rem]"
                     >
-                      <LucideCheck class="size-4" />
+                      <RenderIcon
+                        v-if="getIcon(option)"
+                        :icon="getIcon(option)"
+                      />
+                      <span class="flex-1 truncate">
+                        {{ getLabel(option) }}
+                      </span>
+                    </div>
+                    <ComboboxItemIndicator
+                      class="ml-2 flex-shrink-0 inline-flex items-center justify-center"
+                    >
+                      <LucideCheck class="size-4 text-custom-main" />
                     </ComboboxItemIndicator>
                   </template>
                 </ComboboxItem>
@@ -373,7 +391,7 @@ defineExpose({
                 :key="index"
                 :value="getKey(optionOrGroup)"
                 :disabled="isDisabled(optionOrGroup)"
-                class="text-base leading-none text-ink-gray-7 rounded flex items-center h-7 px-2.5 py-1.5 relative select-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-surface-gray-3"
+                class="flex cursor-pointer items-center justify-between rounded-[0.75rem] h-[2.438rem] px-[0.75rem] text-base text-custom-input-active transition-all relative select-none outline-none border-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none data-[highlighted]:bg-custom-blue data-[highlighted]:text-custom-main data-[highlighted]:font-semibold"
               >
                 <slot
                   v-if="getSlotName(optionOrGroup)"
@@ -386,17 +404,21 @@ defineExpose({
                   :is="getRenderFunction(optionOrGroup)"
                 />
                 <template v-else>
-                  <span class="flex items-center gap-2 pr-6 flex-1">
+                  <div
+                    class="flex flex-1 gap-2 overflow-hidden items-center h-[1.938rem]"
+                  >
                     <RenderIcon
                       v-if="getIcon(optionOrGroup)"
                       :icon="getIcon(optionOrGroup)"
                     />
-                    {{ getLabel(optionOrGroup) }}
-                  </span>
+                    <span class="flex-1 truncate">
+                      {{ getLabel(optionOrGroup) }}
+                    </span>
+                  </div>
                   <ComboboxItemIndicator
-                    class="absolute right-0 w-6 inline-flex items-center justify-center"
+                    class="ml-2 flex-shrink-0 inline-flex items-center justify-center"
                   >
-                    <LucideCheck class="h-4 w-4" />
+                    <LucideCheck class="size-4 text-custom-main" />
                   </ComboboxItemIndicator>
                 </template>
               </ComboboxItem>

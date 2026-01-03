@@ -5,6 +5,7 @@ import LucidePlus from '~icons/lucide/plus'
 import LucideSearch from '~icons/lucide/search'
 import LucideSettings from '~icons/lucide/settings'
 import { Avatar } from '../Avatar'
+import { Settings } from '../icons/icons'
 
 const simpleValue = ref('')
 const objectValue = ref('')
@@ -114,14 +115,19 @@ const customRenderOptions = [
   ...objectOptions.slice(0, 3),
   {
     type: 'custom' as const,
-    key: 'help-option',
-    label: 'Need Help?',
-    render: () => [
-      h(LucideSettings, { class: 'size-4' }),
-      h('span', { class: 'font-medium ml-2' }, 'Need Help?'),
-    ],
+    key: 'settings-option',
+    label: 'Open Settings',
+    render: () =>
+      h(
+        'div',
+        { class: 'flex items-center gap-2 w-full' },
+        [
+          h(Settings, { size: 16, color: '#082CAE', class: 'flex-shrink-0' }),
+          h('span', { class: 'font-medium' }, 'Open Settings'),
+        ],
+      ),
     onClick: () => {
-      alert('Opening help documentation...')
+      alert('Opening settings...')
     },
   },
 ]
