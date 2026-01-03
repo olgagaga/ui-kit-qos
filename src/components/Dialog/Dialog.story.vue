@@ -71,7 +71,7 @@ const createPromise = (): Promise<void> => {
   <Story :layout="{ width: 500, type: 'grid' }">
     <!-- 1. Basic Dialog with Actions -->
     <Variant title="Basic Dialog with Actions" autoPropsDisabled>
-      <Button @click="dialog1 = true">Show Confirmation Dialog</Button>
+      <Button @click="dialog1 = true" class="m-8">Show Confirmation Dialog</Button>
       <Dialog
         :options="{
           title: 'Confirm Action',
@@ -95,7 +95,7 @@ const createPromise = (): Promise<void> => {
 
     <!-- 2. Custom Content with Slots -->
     <Variant title="Custom Content with Slots" autoPropsDisabled>
-      <Button @click="dialog2 = true">Show Custom Dialog</Button>
+      <Button @click="dialog2 = true" class="m-8">Show Custom Dialog</Button>
       <Dialog v-model="dialog2">
         <template #body-title>
           <h3 class="text-2xl font-semibold text-blue-600">
@@ -127,8 +127,8 @@ const createPromise = (): Promise<void> => {
     <!-- 3. Different Sizes -->
     <Variant title="Different Sizes" autoPropsDisabled>
       <div class="space-x-2">
-        <Button @click="dialog3 = true">Small Dialog</Button>
-        <Button @click="dialog4 = true">Large Dialog</Button>
+        <Button @click="dialog3 = true" class="m-8">Small Dialog</Button>
+        <Button @click="dialog4 = true" class="m-8">Large Dialog</Button>
       </div>
 
       <!-- Small Dialog -->
@@ -156,7 +156,7 @@ const createPromise = (): Promise<void> => {
 
     <!-- 4. Disable Outside Click -->
     <Variant title="Disable Outside Click to Close" autoPropsDisabled>
-      <Button @click="dialog5 = true">Show Modal Dialog</Button>
+      <Button @click="dialog5 = true" class="m-8">Show Modal Dialog</Button>
       <Dialog
         :options="{
           title: 'Modal Dialog',
@@ -171,7 +171,7 @@ const createPromise = (): Promise<void> => {
 
     <!-- 5. Dialog with Interactive Components -->
     <Variant title="Dialog with Interactive Components" autoPropsDisabled>
-      <Button @click="dialog6 = true">Show Settings Dialog</Button>
+      <Button @click="dialog6 = true" class="m-8">Show Settings Dialog</Button>
       <Dialog v-model="dialog6">
         <template #body-title>
           <h3 class="text-2xl font-semibold text-ink-gray-9">

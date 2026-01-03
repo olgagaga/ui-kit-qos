@@ -228,10 +228,10 @@ const dialogIconBgClasses = computed(() => {
   const appearance = icon.value?.appearance
   if (!appearance) return 'bg-surface-gray-2'
   const classMap: Record<string, string> = {
-    warning: 'bg-surface-amber-2',
-    info: 'bg-surface-blue-2',
-    danger: 'bg-surface-red-2',
-    success: 'bg-surface-green-2',
+    warning: 'bg-custom-gold',
+    info: 'bg-custom-blue',
+    danger: 'bg-[#FFE7E7]',
+    success: 'bg-[#E4FAEB]',
   }
   return classMap[appearance]
 })
@@ -240,10 +240,10 @@ const dialogIconClasses = computed(() => {
   const appearance = icon.value?.appearance
   if (!appearance) return 'text-ink-gray-5'
   const classMap: Record<string, string> = {
-    warning: 'text-ink-amber-3',
-    info: 'text-ink-blue-3',
-    danger: 'text-ink-red-4',
-    success: 'text-ink-green-3',
+    warning: 'text-custom-gold-dark',
+    info: 'text-custom-main',
+    danger: 'text-custom-error',
+    success: 'text-custom-correct',
   }
   return classMap[appearance]
 })
