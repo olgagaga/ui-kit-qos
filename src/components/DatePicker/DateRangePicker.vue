@@ -39,7 +39,7 @@
             >
               <FeatherIcon
                 name="chevron-down"
-                class="h-4 w-4 cursor-pointer"
+                class="h-7 w-7 cursor-pointer"
                 @mousedown.prevent="togglePopover"
               />
             </slot>
@@ -50,7 +50,7 @@
     <template #body="{ togglePopover }">
       <div
         ref="popoverContentRef"
-        class="w-fit min-w-60 select-none text-base text-ink-gray-9 rounded-lg bg-surface-modal shadow-2xl ring-1 ring-black ring-opacity-5 mt-2"
+        class="w-fit min-w-60 select-none text-base text-custom-input-active rounded-[0.75rem] bg-white shadow-custom-card-shadow-1 mt-1"
       >
         <!-- Header / Navigation -->
         <div class="flex items-center justify-between p-2 pb-0 gap-1">
@@ -67,24 +67,28 @@
             <span v-else>{{ yearRangeStart }} - {{ yearRangeStart + 11 }}</span>
           </Button>
           <div class="flex items-center">
-            <Button
-              variant="ghost"
-              icon="chevron-left"
-              class="size-7"
+            <button
+              type="button"
+              class="size-7 inline-flex items-center justify-center rounded hover:bg-surface-gray-2 transition-colors"
               @click="prev"
-            />
+              aria-label="Previous month"
+            >
+              <Previous :size="16" color="currentColor" />
+            </button>
             <Button
               variant="ghost"
               class="text-xs"
               :label="'Today'"
               @click="() => handleTodayClick(togglePopover)"
             />
-            <Button
-              variant="ghost"
-              icon="chevron-right"
-              class="size-7"
+            <button
+              type="button"
+              class="size-7 inline-flex items-center justify-center rounded hover:bg-surface-gray-2 transition-colors"
               @click="next"
-            />
+              aria-label="Next month"
+            >
+              <Next :size="16" color="currentColor" />
+            </button>
           </div>
         </div>
         <!-- Content -->
@@ -107,23 +111,23 @@
                 v-for="dateObj in week"
                 type="button"
                 :key="dateObj.key"
-                class="flex h-8 w-8 items-center justify-center rounded cursor-pointer text-sm focus:outline-none focus:ring-2 focus:ring-outline-gray-2"
+                class="flex h-8 w-8 items-center justify-center cursor-pointer text-sm transition-all focus:outline-none"
                 :class="[
-                  dateObj.inMonth ? 'text-ink-gray-8' : 'text-ink-gray-3',
-                  dateObj.isToday ? 'font-extrabold text-ink-gray-9' : '',
+                  dateObj.inMonth ? 'text-custom-input-active' : 'text-ink-gray-3',
+                  dateObj.isToday && !dateObj.isRangeStart && !dateObj.isRangeEnd ? 'font-bold' : '',
                   dateObj.isRangeStart || dateObj.isRangeEnd
-                    ? 'bg-surface-gray-6 text-ink-white hover:bg-surface-gray-6'
+                    ? 'bg-custom-main text-white font-semibold hover:bg-custom-hover rounded-[0.5rem]'
                     : dateObj.inRange
-                      ? 'bg-surface-gray-3 rounded-none'
-                      : 'hover:bg-surface-gray-2',
+                      ? 'bg-custom-blue rounded-none'
+                      : 'hover:bg-custom-blue hover:text-custom-main hover:font-semibold rounded-[0.5rem]',
                   dateObj.isRangeStart && !dateObj.isRangeEnd
-                    ? 'rounded-l-md rounded-r-none'
+                    ? 'rounded-l-[0.5rem] rounded-r-none'
                     : '',
                   dateObj.isRangeEnd && !dateObj.isRangeStart
-                    ? 'rounded-r-md rounded-l-none'
+                    ? 'rounded-r-[0.5rem] rounded-l-none'
                     : '',
                   dateObj.isRangeStart && dateObj.isRangeEnd
-                    ? 'rounded-md'
+                    ? 'rounded-[0.5rem]'
                     : '',
                 ]"
                 role="gridcell"
@@ -151,10 +155,12 @@
               v-for="(m, i) in months"
               type="button"
               :key="m"
-              class="py-2 text-sm rounded cursor-pointer text-center hover:bg-surface-gray-2 focus:outline-none focus:ring-2 focus:ring-brand-6"
+              class="py-2 text-sm rounded-[0.5rem] cursor-pointer text-center text-custom-input-active transition-all focus:outline-none"
               :class="{
-                'bg-surface-gray-6 text-ink-white hover:bg-surface-gray-6':
+                'bg-custom-main text-white font-semibold hover:bg-custom-hover':
                   i === currentMonth,
+                'hover:bg-custom-blue hover:text-custom-main hover:font-semibold':
+                  i !== currentMonth,
               }"
               :aria-selected="i === currentMonth ? 'true' : 'false'"
               @click="selectMonth(i)"
@@ -173,10 +179,12 @@
               v-for="y in yearRange"
               type="button"
               :key="y"
-              class="py-2 text-sm rounded cursor-pointer text-center hover:bg-surface-gray-2 focus:outline-none focus:ring-2 focus:ring-brand-6"
+              class="py-2 text-sm rounded-[0.5rem] cursor-pointer text-center text-custom-input-active transition-all focus:outline-none"
               :class="{
-                'bg-surface-gray-6 text-ink-white hover:bg-surface-gray-6':
+                'bg-custom-main text-white font-semibold hover:bg-custom-hover':
                   y === currentYear,
+                'hover:bg-custom-blue hover:text-custom-main hover:font-semibold':
+                  y !== currentYear,
               }"
               :aria-selected="y === currentYear ? 'true' : 'false'"
               @click="selectYear(y)"
@@ -208,6 +216,7 @@ import { Button } from '../Button'
 import { TextInput } from '../TextInput'
 // @ts-ignore - Vue SFC without explicit types
 import FeatherIcon from '../FeatherIcon.vue'
+import { Next, Previous } from '../icons/icons'
 import { dayjs, dayjsLocal } from '../../utils/dayjs'
 import { months, monthStart, generateWeeks, getDateValue } from './utils'
 import type { Dayjs } from 'dayjs/esm'

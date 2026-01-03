@@ -13,7 +13,7 @@
     <div
       v-if="placeholder"
       v-show="!modelValue"
-      class="pointer-events-none absolute text-ink-gray-4 truncate w-full"
+      class="pointer-events-none absolute text-custom-input-text truncate w-full text-custom-input-header"
       :class="[fontSizeClasses, paddingClasses]"
     >
       {{ placeholder }}
@@ -91,27 +91,27 @@ const fontSizeClasses = computed(() => {
 
 const paddingClasses = computed(() => {
   return {
-    sm: 'pl-2 pr-5',
-    md: 'pl-2.5 pr-5.5',
-    lg: 'pl-3 pr-6',
-    xl: 'pl-3 pr-6',
+    sm: 'pl-3 pr-8',
+    md: 'pl-3 pr-8',
+    lg: 'pl-3 pr-8',
+    xl: 'pl-3 pr-8',
   }[props.size]
 })
 
 const selectClasses = computed(() => {
   let sizeClasses = {
-    sm: 'rounded h-7',
-    md: 'rounded h-8',
-    lg: 'rounded-md h-10',
-    xl: 'rounded-md h-10',
+    sm: 'rounded-[0.625rem] h-[2.188rem]',
+    md: 'rounded-[0.625rem] h-[2.188rem]',
+    lg: 'rounded-[0.625rem] h-10',
+    xl: 'rounded-[0.625rem] h-10',
   }[props.size]
 
   let variant = props.disabled ? 'disabled' : props.variant
   let variantClasses = {
     subtle:
-      'border border-[--surface-gray-2] bg-surface-gray-2 hover:border-outline-gray-modals hover:bg-surface-gray-3 focus:border-outline-gray-4 focus:ring-0 focus-visible:ring-2 focus-visible:ring-outline-gray-3',
+      'border bg-custom-input-fill border-transparent hover:bg-surface-gray-2 focus:bg-white focus:border-custom-input-text focus:ring-0 focus-visible:border-outline-gray-4',
     outline:
-      'border border-outline-gray-2 bg-surface-white hover:border-outline-gray-3 focus:border-outline-gray-4 focus:ring-0 focus-visible:ring-2 focus-visible:ring-outline-gray-3',
+      'border border-custom-input-text bg-white hover:border-outline-gray-3 focus:border-outline-gray-4 focus:ring-0 focus-visible:ring-2 focus-visible:ring-outline-gray-3',
     ghost:
       'bg-transparent border-transparent hover:bg-surface-gray-3 focus:bg-surface-gray-3 focus:border-outline-gray-4 focus:ring-0 focus-visible:ring-2 focus-visible:ring-outline-gray-3',
     disabled: [
@@ -129,7 +129,7 @@ const selectClasses = computed(() => {
     paddingClasses.value,
     variantClasses,
     textColor.value,
-    'transition-colors w-full py-0 truncate',
+    'transition-colors w-full py-0 truncate text-custom-input-header text-custom-input-active',
   ]
 })
 

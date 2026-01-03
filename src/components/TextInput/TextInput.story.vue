@@ -52,9 +52,9 @@ const variants = ['subtle', 'outline']
 
     <Variant title="suffix slot icon">
       <div class="p-2">
-        <TextInput type="text">
+        <TextInput type="text" placeholder="Select an option">
           <template #suffix>
-            <FeatherIcon class="w-4" name="search" />
+            <FeatherIcon class="w-4 h-4" name="chevron-down" />
           </template>
         </TextInput>
       </div>

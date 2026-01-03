@@ -29,7 +29,7 @@
           <slot name="suffix" v-bind="{ togglePopover, isOpen }">
             <FeatherIcon
               name="chevron-down"
-              class="h-4 w-4 cursor-pointer"
+              class="h-7 w-7 cursor-pointer"
               @mousedown.prevent="togglePopover"
             />
           </slot>
@@ -40,7 +40,7 @@
       <div
         v-show="isOpen"
         ref="panelRef"
-        class="mt-2 max-h-48 w-44 overflow-y-auto rounded-lg bg-surface-modal p-1 text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none"
+        class="mt-1 max-h-[15rem] min-w-44 overflow-y-auto rounded-[0.75rem] bg-white p-[0.375rem] text-base shadow-custom-card-shadow-1 focus:outline-none"
         role="listbox"
         :aria-activedescendant="activeDescendantId"
       >
@@ -50,7 +50,7 @@
           :data-value="opt.value"
           :data-index="idx"
           type="button"
-          class="group flex h-7 w-full items-center rounded px-2 text-left"
+          class="group flex h-[2.438rem] w-full items-center rounded-[0.75rem] px-[0.75rem] text-left text-custom-input-active transition-all"
           :class="buttonClasses(opt, idx)"
           @click="select(opt.value)"
           @mouseenter="highlightIndex = idx"
@@ -347,18 +347,18 @@ const selectedAndNearest = computed<{
 })
 
 function buttonClasses(opt: Option, idx: number): string {
-  if (idx === highlightIndex.value) return 'bg-surface-gray-3 text-ink-gray-8'
+  if (idx === highlightIndex.value) return 'bg-custom-blue text-custom-main font-semibold'
   const { selected, nearest } = selectedAndNearest.value
   if (isTyping.value && !selected) {
     if (nearest && nearest.value === opt.value)
-      return 'text-ink-gray-7 italic bg-surface-gray-2'
-    return 'text-ink-gray-6 hover:bg-surface-gray-2 hover:text-ink-gray-8'
+      return 'bg-custom-blue text-custom-main italic'
+    return 'hover:bg-custom-blue hover:text-custom-main hover:font-semibold'
   }
   if (selected && selected.value === opt.value)
-    return 'bg-surface-gray-3 text-ink-gray-8'
+    return 'bg-custom-main text-white font-semibold'
   if (nearest && nearest.value === opt.value)
-    return 'text-ink-gray-7 italic bg-surface-gray-2'
-  return 'text-ink-gray-6 hover:bg-surface-gray-2 hover:text-ink-gray-8'
+    return 'bg-custom-blue text-custom-main italic'
+  return 'hover:bg-custom-blue hover:text-custom-main hover:font-semibold'
 }
 
 watch(

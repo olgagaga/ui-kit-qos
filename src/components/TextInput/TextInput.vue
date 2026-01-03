@@ -6,8 +6,7 @@
   >
     <div
       :class="[
-        'absolute inset-y-0 left-0 flex items-center',
-        textColor,
+        'absolute inset-y-0 left-0 flex items-center text-custom-input-text',
         prefixClasses,
       ]"
       v-if="$slots.prefix"
@@ -29,8 +28,7 @@
     />
     <div
       :class="[
-        'absolute inset-y-0 right-0 flex items-center',
-        textColor,
+        'absolute inset-y-0 right-0 flex items-center text-custom-input-text',
         suffixClasses,
       ]"
       v-if="$slots.suffix"
@@ -77,22 +75,22 @@ const textColor = computed(() => {
 
 const inputClasses = computed(() => {
   let sizeClasses = {
-    sm: 'text-base rounded h-7',
-    md: 'text-base rounded h-8',
-    lg: 'text-lg rounded-md h-10',
-    xl: 'text-xl rounded-md h-10',
+    sm: 'text-base rounded-[0.625rem] h-[2.188rem]',
+    md: 'text-base rounded-[0.625rem] h-[2.188rem]',
+    lg: 'text-lg rounded-[0.625rem] h-10',
+    xl: 'text-xl rounded-[0.625rem] h-10',
   }[props.size]
 
   let paddingClasses = {
     sm: [
-      'py-1.5',
-      slots.prefix ? 'pl-8' : 'pl-2',
-      slots.suffix ? 'pr-8' : 'pr-2',
+      'py-1',
+      slots.prefix ? 'pl-8' : 'pl-3',
+      slots.suffix ? 'pr-8' : 'pr-3',
     ],
     md: [
-      'py-1.5',
-      slots.prefix ? 'pl-9' : 'pl-2.5',
-      slots.suffix ? 'pr-9' : 'pr-2.5',
+      'py-1',
+      slots.prefix ? 'pl-9' : 'pl-3',
+      slots.suffix ? 'pr-9' : 'pr-3',
     ],
     lg: [
       'py-1.5',
@@ -109,14 +107,16 @@ const inputClasses = computed(() => {
   let variant = props.disabled ? 'disabled' : props.variant
   let variantClasses = {
     subtle:
-      'border border-[--surface-gray-2] bg-surface-gray-2 placeholder-ink-gray-4 hover:border-outline-gray-modals hover:bg-surface-gray-3 focus:bg-surface-white focus:border-outline-gray-4 focus:shadow-sm focus:ring-0 focus-visible:ring-2 focus-visible:ring-outline-gray-3',
+      'border bg-custom-input-fill border-transparent placeholder:text-custom-input-text hover:bg-surface-gray-2 focus:bg-white focus:border-custom-input-text focus:ring-0 focus-visible:border-outline-gray-4',
     outline:
-      'border border-outline-gray-2 bg-surface-white placeholder-ink-gray-4 hover:border-outline-gray-3 hover:shadow-sm focus:bg-surface-white focus:border-outline-gray-4 focus:shadow-sm focus:ring-0 focus-visible:ring-2 focus-visible:ring-outline-gray-3',
+      'border border-custom-input-text bg-white placeholder:text-custom-input-text hover:border-outline-gray-3 focus:border-outline-gray-4 focus:ring-0 focus-visible:ring-2 focus-visible:ring-outline-gray-3',
     disabled: [
-      'border bg-surface-gray-1 placeholder-ink-gray-3',
+      'border',
+      props.variant !== 'ghost' ? 'bg-surface-gray-1' : '',
       props.variant === 'outline'
         ? 'border-outline-gray-2'
         : 'border-transparent',
+      'placeholder:text-ink-gray-3',
     ],
     ghost: 'border-0 focus:ring-0 focus-visible:ring-0',
   }[variant]
@@ -126,7 +126,7 @@ const inputClasses = computed(() => {
     paddingClasses,
     variantClasses,
     textColor.value,
-    'transition-colors w-full dark:[color-scheme:dark]',
+    'transition-colors w-full text-custom-input-header text-custom-input-active dark:[color-scheme:dark]',
   ]
 })
 
