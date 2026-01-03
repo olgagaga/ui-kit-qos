@@ -27,10 +27,10 @@
         :class="boxClasses"
       >
         <Check
+          v-if="modelValue"
           :size="12"
-          color="white"
-          class="transition-opacity shrink-0"
-          :class="modelValue ? 'opacity-100' : 'opacity-0'"
+          color="#FFFFFF"
+          class="shrink-0 pointer-events-none"
         />
       </label>
     </div>
@@ -73,7 +73,7 @@ const boxClasses = computed(() => {
       ? 'border-custom-inactive bg-custom-hover cursor-not-allowed'
       : 'border-custom-input-text bg-custom-inactive cursor-not-allowed'
     : props.modelValue
-      ? 'border-custom-main bg-custom-main cursor-pointer'
+      ? 'border-custom-main bg-[#082CAE] cursor-pointer'
       : 'border-custom-input-text bg-white hover:border-custom-input-active cursor-pointer'
 
   let focusClasses = props.disabled
