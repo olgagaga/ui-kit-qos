@@ -188,38 +188,38 @@ const switchActions = [
 <template>
   <Story title="Dropdown" :layout="{ type: 'grid', width: '200px' }">
     <Variant title="Default">
-      <div class="asdf">
+      <div class="asdf m-8">
         <Dropdown :options="actions" />
       </div>
     </Variant>
 
     <Variant title="With Custom Button">
       <Dropdown :options="actions">
-        <Button variant="solid">Custom Trigger</Button>
+        <Button variant="solid" class="m-8">Custom</Button>
       </Dropdown>
     </Variant>
 
     <Variant title="With Groups">
-      <Dropdown :options="groupedActions" />
+      <Dropdown :options="groupedActions" class="m-8"/>
     </Variant>
 
     <Variant title="Right Aligned">
-      <Dropdown :options="actions" placement="right" />
+      <Dropdown :options="actions" placement="right" class="m-8"/>
     </Variant>
 
     <Variant title="Center Aligned">
-      <Dropdown :options="actions" placement="center" />
+      <Dropdown :options="actions" placement="center" class="m-8"/>
     </Variant>
 
     <Variant title="With Submenus">
-      <Dropdown :options="submenuActions" />
+      <Dropdown :options="submenuActions" class="m-8"/>
     </Variant>
     <Variant title="With Switches">
-      <Dropdown :options="switchActions" />
+      <Dropdown :options="switchActions" class="m-8" />
     </Variant>
 
     <Variant title="With Nested Submenus">
-      <Dropdown :options="groupedActions" />
+      <Dropdown :options="groupedActions" class="m-8"/>
     </Variant>
   </Story>
 </template>

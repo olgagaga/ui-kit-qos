@@ -87,9 +87,10 @@
                       <span :class="[cssClasses.itemLabel, getTextColor(item)]">
                         {{ item.label }}
                       </span>
-                      <FeatherIcon
-                        name="chevron-right"
-                        :class="[cssClasses.chevronIcon, getIconColor(item)]"
+                      <Next
+                        :size="16"
+                        color="currentColor"
+                        :class="cssClasses.chevronIcon"
                         aria-hidden="true"
                       />
                     </button>
@@ -268,6 +269,7 @@ import type {
   DropdownItem,
 } from './types'
 import Switch from '../Switch/Switch.vue'
+import { Next } from '../icons/icons'
 
 defineOptions({
   inheritAttrs: false,
@@ -311,17 +313,17 @@ const normalizeDropdownItem = (option: DropdownOption) => {
 }
 
 const getIconColor = (item: DropdownItem) =>
-  item.theme === 'red' ? 'text-ink-red-3' : 'text-ink-gray-6'
+  item.theme === 'red' ? 'text-ink-red-3' : ''
 const getTextColor = (item: DropdownItem) =>
-  item.theme === 'red' ? 'text-ink-red-3' : 'text-ink-gray-7'
+  item.theme === 'red' ? 'text-ink-red-3' : ''
 const getBackgroundColor = (item: DropdownItem) =>
   item.theme === 'red'
-    ? 'focus:bg-surface-red-3 data-[highlighted]:bg-surface-red-3 data-[state=open]:bg-surface-red-3'
-    : 'focus:bg-surface-gray-3 data-[highlighted]:bg-surface-gray-3 data-[state=open]:bg-surface-gray-3'
+    ? 'data-[highlighted]:bg-surface-red-3'
+    : 'data-[highlighted]:bg-custom-blue data-[highlighted]:text-custom-main data-[highlighted]:font-semibold'
 const getSubmenuBackgroundColor = (item: DropdownItem) =>
-  getBackgroundColor(item) +
-  ' data-[state=open]:bg-surface-' +
-  (item.theme === 'red' ? 'red-3' : 'gray-3')
+  item.theme === 'red'
+    ? 'data-[highlighted]:bg-surface-red-3 data-[state=open]:bg-surface-red-3'
+    : 'data-[highlighted]:bg-custom-blue data-[highlighted]:text-custom-main data-[highlighted]:font-semibold data-[state=open]:bg-custom-blue data-[state=open]:text-custom-main data-[state=open]:font-semibold'
 
 // Unified group processing for both main options and submenu options
 const processOptionsIntoGroups = (
@@ -388,23 +390,23 @@ const groupHasIcons = (group: DropdownGroupOption) => {
 const cssClasses = {
   // Container classes
   dropdownContent:
-    'min-w-40 divide-y divide-outline-gray-modals rounded-lg bg-surface-modal shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dropdown-content',
-  groupContainer: 'p-1.5',
+    'min-w-40 rounded-[0.75rem] bg-white shadow-custom-card-shadow-1 focus:outline-none dropdown-content',
+  groupContainer: 'p-[0.375rem]',
 
   // Label classes
-  groupLabel: 'flex h-7 items-center px-2 text-sm font-medium',
+  groupLabel: 'flex h-7 items-center px-[0.75rem] text-sm font-medium text-ink-gray-5',
   itemLabel: 'whitespace-nowrap',
 
   // Icon classes
   itemIcon: 'mr-2 h-4 w-4 flex-shrink-0',
   itemIconPlaceholder: 'mr-2 h-4 w-4 flex-shrink-0',
-  chevronIcon: 'ml-auto h-4 w-4 flex-shrink-0',
+  chevronIcon: 'ml-auto h-7ed w-7 flex-shrink-0 pl-3',
 
   // Button classes
   itemButton:
-    'group flex h-7 w-full items-center rounded px-2 text-base focus:outline-none',
+    'group flex h-[2.438rem] w-full items-center gap-3 rounded-[0.75rem] px-[0.75rem] text-base text-custom-input-active transition-[background-color,color,font-weight] focus:outline-none focus-visible:outline-none focus:ring-0',
   submenuTrigger:
-    'group flex h-7 w-full items-center rounded px-2 text-base text-ink-gray-6 focus:outline-none',
+    'group flex h-[2.438rem] w-full items-center gap-3 rounded-[0.75rem] px-[0.75rem] text-base text-custom-input-active transition-[background-color,color,font-weight] focus:outline-none focus-visible:outline-none focus:ring-0',
 }
 
 const groups = computed(() => {

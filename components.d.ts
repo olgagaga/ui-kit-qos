@@ -70,6 +70,7 @@ declare module 'vue' {
     'Dialog.story': typeof import('./src/components/Dialog/Dialog.story.vue')['default']
     Dialogs: typeof import('./src/components/Dialogs.vue')['default']
     Divider: typeof import('./src/components/Divider/Divider.vue')['default']
+    'Divider.story': typeof import('./src/components/Divider/Divider.story.vue')['default']
     DonutChart: typeof import('./src/components/Charts/DonutChart.vue')['default']
     DoubleQuotesR: typeof import('./src/components/TextEditor/icons/double-quotes-r.vue')['default']
     Dropdown: typeof import('./src/components/Dropdown/Dropdown.vue')['default']
