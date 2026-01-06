@@ -5,4 +5,5 @@ export interface ProgressProps {
   hint?: boolean
   intervals?: boolean
   intervalCount?: number
+  showPercentage?: boolean
 }

@@ -20,31 +20,45 @@
     </div>
 
     <div
-      class="overflow-hidden rounded-xl"
+      class="relative flex items-center overflow-hidden rounded-full border"
       :class="indicatorContainerClasses"
       :aria-valuemax="MAX_VALUE"
       :aria-valuemin="MIN_VALUE"
       :aria-valuenow="props.value"
       role="progressbar"
+      :style="{ borderColor: '#CBD5E1' }"
     >
       <!-- Continuous Progress Bar -->
       <div
         v-if="!props.intervals"
-        class="h-full bg-surface-gray-7"
-        :style="`width: ${props.value}%`"
+        class="absolute left-[1px] top-[1px] h-[calc(100%-2px)] rounded-full transition-all duration-300"
+        :style="progressStyle"
       ></div>
 
       <!-- Interval Progress Bar -->
       <div
-        v-else
-        v-for="index in intervalCount"
-        class="h-full w-full"
-        :class="
-          index <= filledIntervalCount
-            ? 'bg-surface-gray-7'
-            : 'bg-surface-gray-2'
-        "
-      ></div>
+        v-if="props.intervals"
+        class="absolute left-[1px] top-[1px] flex h-[calc(100%-2px)] w-[calc(100%-2px)] space-x-1"
+      >
+        <div
+          v-for="index in intervalCount"
+          :key="index"
+          class="h-full w-full rounded-full"
+          :class="
+            index <= filledIntervalCount
+              ? 'bg-custom-main'
+              : 'bg-custom-blue'
+          "
+        ></div>
+      </div>
+
+      <!-- Percentage Text -->
+      <span
+        v-if="props.showPercentage && !props.intervals"
+        class="absolute right-2 text-[10px] font-medium text-custom-main"
+      >
+        {{ props.value }}%
+      </span>
     </div>
   </div>
 </template>
@@ -62,21 +76,19 @@ const props = withDefaults(defineProps<ProgressProps>(), {
   label: '',
   intervals: false,
   intervalCount: 6,
+  showPercentage: false,
 })
 
 const indicatorContainerClasses = computed(() => {
-  const heightClass = {
-    sm: 'h-[2px]',
-    md: 'h-1',
-    lg: 'h-2',
-    xl: 'h-3',
-  }[props.size]
+  return 'h-[17px]'
+})
 
-  const layoutClasses = props.intervals
-    ? 'flex space-x-1'
-    : 'relative bg-surface-gray-2'
-
-  return [heightClass, layoutClasses]
+const progressStyle = computed(() => {
+  const width = Math.min(Math.max(props.value, 0), MAX_VALUE)
+  return {
+    width: `calc(${width}% - 2px)`,
+    background: 'linear-gradient(135deg, #082CAE 0%, #26409F 53%, #4D73FB 100%)',
+  }
 })
 
 const filledIntervalCount = computed(() => {
