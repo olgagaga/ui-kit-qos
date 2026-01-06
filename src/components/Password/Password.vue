@@ -29,7 +29,7 @@
           <component
             v-show="showEye"
             :is="show ? LucideEyeOff : LucideEye"
-            class="h-3 cursor-pointer mr-1"
+            class="h-5 cursor-pointer mr-1 text-custom-input-active"
             @click="show = !show"
           />
         </div>
