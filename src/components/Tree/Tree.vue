@@ -21,8 +21,14 @@
           name="label"
           v-bind="{ node, hasChildren, isCollapsed, isSelected }"
         >
-          <div class="flex-1 truncate">
-            {{ node.label }}
+          <div class="flex items-center gap-2 flex-1 truncate">
+            <component
+              v-if="node.icon"
+              :is="node.icon"
+              :size="24"
+              class="flex-shrink-0"
+            />
+            <span class="truncate">{{ node.label }}</span>
           </div>
         </slot>
 

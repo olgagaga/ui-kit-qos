@@ -11,6 +11,19 @@
         :node="state.node"
       />
     </Variant>
+    <Variant title="with icons">
+      <Tree
+        :options="{
+          showIndentationGuides: true,
+          defaultCollapsed: true,
+          indentWidth: '37px',
+        }"
+        nodeKey="name"
+        :node="stateWithIcons.node"
+        :selectedNode="stateWithIcons.selectedNode"
+        @select="stateWithIcons.selectedNode = $event"
+      />
+    </Variant>
     <template #controls>
       <HstCheckbox
         v-model="state.showIndentationGuides"
@@ -25,6 +38,9 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import Tree from './Tree.vue'
+import PracticeIcon from '../icons/components/Practice.vue'
+import CoursesIcon from '../icons/components/Courses.vue'
+import StudentIcon from '../icons/components/Student.vue'
 
 const state = reactive({
   showIndentationGuides: true,
@@ -63,6 +79,67 @@ const state = reactive({
           {
             name: 'somefile.pdf',
             label: 'somefile.pdf',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+})
+
+const stateWithIcons = reactive({
+  selectedNode: null as any,
+  node: {
+    name: 'root',
+    label: 'Root',
+    children: [
+      {
+        name: 'practice',
+        label: 'Practice',
+        icon: PracticeIcon,
+        children: [
+          {
+            name: 'exercise1',
+            label: 'Exercise 1',
+            children: [],
+          },
+          {
+            name: 'exercise2',
+            label: 'Exercise 2',
+            children: [],
+          },
+        ],
+      },
+      {
+        name: 'courses',
+        label: 'Courses',
+        icon: CoursesIcon,
+        children: [
+          {
+            name: 'course1',
+            label: 'Introduction to Programming',
+            children: [],
+          },
+          {
+            name: 'course2',
+            label: 'Advanced JavaScript',
+            children: [],
+          },
+        ],
+      },
+      {
+        name: 'students',
+        label: 'Students',
+        icon: StudentIcon,
+        children: [
+          {
+            name: 'student1',
+            label: 'John Doe',
+            children: [],
+          },
+          {
+            name: 'student2',
+            label: 'Jane Smith',
             children: [],
           },
         ],
