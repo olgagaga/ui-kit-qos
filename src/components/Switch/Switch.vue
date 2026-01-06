@@ -66,17 +66,17 @@ const switchClasses = computed(() => {
     model.value
       ? 'bg-custom-main enabled:hover:bg-custom-hover enabled:focus-visible:bg-custom-hover group-hover:enabled:bg-custom-hover'
       : 'bg-custom-input-text enabled:hover:opacity-80 enabled:focus-visible:opacity-80 group-hover:enabled:opacity-80',
-    props.size === 'md' ? 'h-5 w-8 p-0.5' : 'h-[21px] w-[37px] p-[3px]',
+    props.size === 'md' ? 'h-[26px] w-[46px] p-[3px]' : 'h-[21px] w-[37px] p-[3px]',
   ]
 })
 
 const switchCircleClasses = computed(() => {
   return [
     'pointer-events-none inline-block transform rounded-full bg-white ring-0 transition duration-100 ease-in-out shadow-[0_3.52px_7.04px_0_rgba(0,0,0,0.22)]',
-    props.size === 'md' ? 'h-4 w-4' : 'h-[15px] w-[15px]',
+    props.size === 'md' ? 'h-[20px] w-[20px]' : 'h-[15px] w-[15px]',
     props.size === 'md'
       ? model.value
-        ? 'translate-x-[12px] rtl:-translate-x-[12px]'
+        ? 'translate-x-[20px] rtl:-translate-x-[20px]'
         : 'translate-x-0'
       : model.value
         ? 'translate-x-[16px] rtl:-translate-x-[16px]'
