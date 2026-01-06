@@ -5,7 +5,7 @@ import { Button } from '../Button'
 <template>
   <Story :layout="{ type: 'grid' }">
     <Variant title="trigger: click">
-      <Popover>
+      <Popover  class="p-5">
         <template #target="{ togglePopover }">
           <Button @click="togglePopover()">Click me</Button>
         </template>
@@ -16,7 +16,7 @@ import { Button } from '../Button'
     </Variant>
 
     <Variant title="trigger: hover">
-      <Popover trigger="hover" hoverDelay="0.5">
+      <Popover trigger="hover" hoverDelay="0.5"  class="p-5">
         <template #target>
           <Button>Hover me</Button>
         </template>
