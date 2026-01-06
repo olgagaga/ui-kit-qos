@@ -128,9 +128,11 @@
                 >
                   <li
                     :class="[
-                      'flex cursor-pointer items-center justify-between rounded-[0.75rem] h-[2.438rem] px-[0.75rem] text-base text-custom-input-active transition-all',
+                      'flex cursor-pointer items-center justify-between rounded-[0.75rem] h-[2.438rem] px-[0.75rem] text-base transition-all',
                       {
+                        'bg-custom-main text-white font-semibold': selected && !active,
                         'bg-custom-blue text-custom-main font-semibold': active,
+                        'text-custom-input-active': !selected && !active,
                         'opacity-50': option.disabled,
                       },
                     ]"

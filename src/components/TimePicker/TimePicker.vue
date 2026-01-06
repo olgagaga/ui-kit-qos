@@ -347,17 +347,24 @@ const selectedAndNearest = computed<{
 })
 
 function buttonClasses(opt: Option, idx: number): string {
-  if (idx === highlightIndex.value) return 'bg-custom-blue text-custom-main font-semibold'
   const { selected, nearest } = selectedAndNearest.value
-  if (isTyping.value && !selected) {
-    if (nearest && nearest.value === opt.value)
-      return 'bg-custom-blue text-custom-main italic'
-    return 'hover:bg-custom-blue hover:text-custom-main hover:font-semibold'
-  }
+
+  // Selected item always has bg-custom-main
   if (selected && selected.value === opt.value)
     return 'bg-custom-main text-white font-semibold'
+
+  // Highlighted item (keyboard navigation) has bg-custom-blue
+  if (idx === highlightIndex.value)
+    return 'bg-custom-blue text-custom-main font-semibold'
+
+  // Nearest item when typing has bg-custom-blue
+  if (isTyping.value && !selected && nearest && nearest.value === opt.value)
+    return 'bg-custom-blue text-custom-main italic'
+
   if (nearest && nearest.value === opt.value)
     return 'bg-custom-blue text-custom-main italic'
+
+  // Hover state has bg-custom-blue
   return 'hover:bg-custom-blue hover:text-custom-main hover:font-semibold'
 }
 

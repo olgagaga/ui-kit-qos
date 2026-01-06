@@ -58,7 +58,7 @@
               :class="[
                 'flex w-full cursor-pointer items-center justify-between rounded-[0.75rem] h-[2.438rem] px-[0.75rem] text-base text-custom-input-active transition-all',
                 {
-                  'bg-custom-blue text-custom-main font-semibold':
+                  'bg-custom-main text-white font-semibold':
                     modelValue === option.value,
                   'hover:bg-custom-blue hover:text-custom-main hover:font-semibold':
                     modelValue !== option.value && !option.disabled,
