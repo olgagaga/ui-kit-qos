@@ -1,23 +1,27 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import TextInput from './TextInput.vue'
 import FeatherIcon from '../FeatherIcon.vue'
 import { Avatar } from '../Avatar'
+import DatePicker from '../DatePicker/DatePicker.vue'
+import DateTimePicker from '../DatePicker/DateTimePicker.vue'
+import { Date as DateIcon } from '../icons/icons'
 
 const state = reactive({
   size: 'sm',
-  variant: 'subtle',
+  variant: 'subtle' as 'subtle' | 'outline' | 'ghost',
   placeholder: 'Placeholder',
   disabled: false,
   modelValue: '',
 })
 
+const dateValue = ref('')
+const dateTimeValue = ref('')
+
 const inputTypes = [
   'text',
   'number',
   'email',
-  'date',
-  'datetime-local',
   'password',
   'search',
   'tel',
@@ -70,6 +74,44 @@ const variants = ['subtle', 'outline']
             />
           </template>
         </TextInput>
+      </div>
+    </Variant>
+
+    <Variant title="date">
+      <div class="p-2">
+        <DatePicker
+          v-model="dateValue"
+          :variant="state.variant"
+          :placeholder="state.placeholder"
+          :disabled="state.disabled"
+        >
+          <template #suffix="{ togglePopover }">
+            <DateIcon
+              :size="20"
+              class="cursor-pointer"
+              @mousedown.prevent="togglePopover"
+            />
+          </template>
+        </DatePicker>
+      </div>
+    </Variant>
+
+    <Variant title="datetime-local">
+      <div class="p-2">
+        <DateTimePicker
+          v-model="dateTimeValue"
+          :variant="state.variant"
+          :placeholder="state.placeholder"
+          :disabled="state.disabled"
+        >
+          <template #suffix="{ togglePopover }">
+            <DateIcon
+              :size="20"
+              class="cursor-pointer"
+              @mousedown.prevent="togglePopover"
+            />
+          </template>
+        </DateTimePicker>
       </div>
     </Variant>
 

@@ -3,6 +3,7 @@ import { reactive, ref } from 'vue'
 import FormControl from './FormControl.vue'
 import FeatherIcon from '../FeatherIcon.vue'
 import { Avatar } from '../Avatar'
+import { Date as DateIcon } from '../icons/icons'
 
 const state = reactive({
   size: 'sm',
@@ -101,6 +102,20 @@ const variants = ['subtle', 'outline']
             <Avatar
               size="sm"
               image="https://avatars.githubusercontent.com/u/499550?s=60&v=4"
+            />
+          </template>
+        </FormControl>
+      </div>
+    </Variant>
+
+    <Variant title="date with custom calendar icon">
+      <div class="p-2">
+        <FormControl type="date" label="Select Date" v-model="inputValue">
+          <template #suffix="{ togglePopover }">
+            <DateIcon
+              :size="20"
+              class="cursor-pointer"
+              @mousedown.prevent="togglePopover"
             />
           </template>
         </FormControl>

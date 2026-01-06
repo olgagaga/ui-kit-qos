@@ -41,11 +41,11 @@
       :id="id"
       v-bind="{ ...controlAttrs, variant }"
     >
-      <template #prefix v-if="$slots.prefix">
-        <slot name="prefix" />
+      <template #prefix="slotProps" v-if="$slots.prefix">
+        <slot name="prefix" v-bind="slotProps" />
       </template>
-      <template #suffix v-if="$slots.suffix">
-        <slot name="suffix" />
+      <template #suffix="slotProps" v-if="$slots.suffix">
+        <slot name="suffix" v-bind="slotProps" />
       </template>
     </DatePicker>
     <TextInput

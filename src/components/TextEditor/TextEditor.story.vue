@@ -76,7 +76,7 @@ const customButtons = [
                 class="-ml-1 overflow-x-auto"
                 :buttons="customButtons"
               />
-              <div class="mt-2 flex items-center justify-end space-x-2 sm:mt-0">
+              <div class="mt-2 flex items-center justify-end space-x-2 sm:mt-0 p-5">
                 <Button>Cancel</Button>
                 <Button variant="solid">Submit</Button>
               </div>
