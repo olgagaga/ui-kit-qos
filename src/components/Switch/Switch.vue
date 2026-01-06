@@ -60,26 +60,26 @@ watch(model, (val) => {
 const id = useId()
 const switchClasses = computed(() => {
   return [
-    'relative inline-flex flex-shrink-0 cursor-pointer rounded-full border-transparent transition-colors duration-100 ease-in-out items-center',
+    'relative inline-flex flex-shrink-0 cursor-pointer rounded-full transition-colors duration-100 ease-in-out items-center',
     'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-outline-gray-3',
     'disabled:cursor-not-allowed disabled:bg-surface-gray-3',
     model.value
-      ? 'bg-surface-gray-7 enabled:hover:bg-surface-gray-6 active:bg-surface-gray-5 group-hover:enabled:bg-surface-gray-6'
-      : 'bg-surface-gray-4 enabled:hover:bg-gray-400 active:bg-gray-500 group-hover:enabled:bg-gray-400',
-    props.size === 'md' ? 'h-5 w-8 border-[3px]' : 'h-4 w-[26px] border-2',
+      ? 'bg-custom-main enabled:hover:bg-custom-hover enabled:focus-visible:bg-custom-hover group-hover:enabled:bg-custom-hover'
+      : 'bg-custom-input-text enabled:hover:opacity-80 enabled:focus-visible:opacity-80 group-hover:enabled:opacity-80',
+    props.size === 'md' ? 'h-5 w-8 p-0.5' : 'h-[21px] w-[37px] p-[3px]',
   ]
 })
 
 const switchCircleClasses = computed(() => {
   return [
-    'pointer-events-none inline-block transform rounded-full bg-surface-white shadow ring-0 transition duration-100 ease-in-out',
-    props.size === 'md' ? 'h-3.5 w-3.5' : 'h-3 w-3',
+    'pointer-events-none inline-block transform rounded-full bg-white ring-0 transition duration-100 ease-in-out shadow-[0_3.52px_7.04px_0_rgba(0,0,0,0.22)]',
+    props.size === 'md' ? 'h-4 w-4' : 'h-[15px] w-[15px]',
     props.size === 'md'
       ? model.value
-        ? 'translate-x-3 rtl:-translate-x-3'
+        ? 'translate-x-[12px] rtl:-translate-x-[12px]'
         : 'translate-x-0'
       : model.value
-        ? 'translate-x-2.5 rtl:-translate-x-2.5'
+        ? 'translate-x-[16px] rtl:-translate-x-[16px]'
         : 'translate-x-0',
   ]
 })
