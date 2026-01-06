@@ -11,6 +11,7 @@ const onSuccess = (file) => {}
       :fileTypes="['image/*']"
       :validateFile="validateFileFunction"
       @success="onSuccess"
+      class="p-5"
     >
       <template
         v-slot="{
