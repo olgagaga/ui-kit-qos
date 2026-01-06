@@ -11,10 +11,11 @@ const currentTab = ref('mytasks')
       <div class="flex">
         <TabButtons
           :buttons="[
-            { label: 'Tasks assigned to me', value: 'mytasks' },
-            { label: 'Tasks created by me', value: 'created' },
+            { label: 'Новые', value: 'mytasks' },
+            { label: 'Скоро Анонс', value: 'created' },
           ]"
           v-model="currentTab"
+          class="p-5"
         />
       </div>
     </Variant>

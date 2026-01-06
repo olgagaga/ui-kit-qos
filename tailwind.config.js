@@ -12,6 +12,7 @@ export default {
     extend: {
       boxShadow: {
         'custom-card-shadow-1': '3.9px 15.59px 23.39px 0px rgba(0, 0, 0, 0.12)',
+        'button_shadow_bg': '0 2px 0 0 rgba(0, 23, 107, 1)',
       },
       fontSize: {
         // Custom class: 'text-custom-input-header'
