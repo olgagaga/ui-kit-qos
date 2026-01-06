@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mb-2 grid items-center space-x-4 rounded bg-surface-gray-2 p-2"
+    class="grid items-center space-x-4 rounded-md bg-custom-blue h-[26px] px-2"
     :style="{
       gridTemplateColumns: getGridTemplateColumns(
         list.columns,

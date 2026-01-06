@@ -20,7 +20,7 @@
       "
     >
       <slot v-bind="{ label }">
-        <div class="truncate text-base">{{ label }}</div>
+        <div class="truncate text-[12px] leading-[120%] font-normal">{{ label }}</div>
       </slot>
     </Tooltip>
     <slot name="suffix" />

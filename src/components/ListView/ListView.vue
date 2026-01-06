@@ -1,7 +1,7 @@
 <template>
   <div class="relative flex w-full flex-1 flex-col overflow-x-auto">
     <div
-      class="flex w-max min-w-full flex-col overflow-y-hidden"
+      class="flex w-max min-w-full flex-col overflow-y-hidden gap-[2px]"
       :class="$attrs.class"
       :style="$attrs.style"
     >

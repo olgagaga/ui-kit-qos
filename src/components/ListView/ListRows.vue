@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full overflow-y-auto">
+  <div class="h-full overflow-y-auto flex flex-col gap-[2px]">
     <slot>
       <ListRow v-for="row in list.rows" :key="row[list.rowKey]" :row="row" />
     </slot>

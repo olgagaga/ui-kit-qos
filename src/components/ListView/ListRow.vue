@@ -2,7 +2,6 @@
   <component
     :is="list.options.getRowRoute ? 'router-link' : 'div'"
     :class="[
-      roundedClass,
       isSelected || isActive ? 'bg-surface-gray-2' : '',
       isHoverable ? 'cursor-pointer' : '',
       isHoverable
@@ -11,7 +10,7 @@
           : 'hover:bg-surface-menu-bar'
         : '',
     ]"
-    class="flex flex-col transition-all duration-300 ease-in-out"
+    class="flex flex-col transition-all duration-300 ease-in-out rounded-md bg-white border border-custom-input-fill h-[26px] justify-center"
     v-bind="{
       to: list.options.getRowRoute ? list.options.getRowRoute(row) : undefined,
       onClick: (e) => onRowClick(row, e),
@@ -22,9 +21,8 @@
       class="[all:unset] hover:[all:unset]"
     >
       <div
-        class="grid items-center space-x-4 px-2"
+        class="grid items-center space-x-4 px-2 h-full"
         :style="{
-          height: rowHeight,
           gridTemplateColumns: getGridTemplateColumns(
             list.columns,
             list.options.selectable,
@@ -33,7 +31,7 @@
       >
         <div
           v-if="list.options.selectable"
-          class="w-fit pr-2 py-3 flex"
+          class="w-fit pr-2 flex"
           @click.stop.prevent
           @dblclick.stop
         >
@@ -48,7 +46,7 @@
           :key="column.key"
           :class="[
             alignmentMap[column.align],
-            i == 0 ? 'text-ink-gray-9' : 'text-ink-gray-7',
+            'text-black text-[12px] leading-[120%] font-normal',
           ]"
         >
           <slot v-bind="{ idx: i, column, item: row[column.key], isActive }">
@@ -72,15 +70,6 @@
           </slot>
         </div>
       </div>
-      <div
-        v-if="!isLastRow"
-        class="h-px border-t"
-        :class="
-          roundedClass === 'rounded' || roundedClass?.includes?.('rounded-b')
-            ? 'mx-2 border-outline-gray-1'
-            : 'border-t-[--surface-gray-2]'
-        "
-      />
     </component>
   </component>
 </template>
@@ -89,7 +78,7 @@
 import Checkbox from '../Checkbox/Checkbox.vue'
 import ListRowItem from './ListRowItem.vue'
 import { alignmentMap, getGridTemplateColumns } from './utils'
-import { computed, inject, ref } from 'vue'
+import { computed, inject } from 'vue'
 
 const props = defineProps({
   row: {
@@ -99,14 +88,6 @@ const props = defineProps({
 })
 
 const list = inject('list')
-
-const isLastRow = computed(() => {
-  if (!list.value.rows?.length) return false
-  return (
-    list.value.rows[list.value.rows.length - 1][list.value.rowKey] ===
-    props.row[list.value.rowKey]
-  )
-})
 
 const isSelected = computed(() => {
   return list.value.selections.has(props.row[list.value.rowKey])
@@ -119,29 +100,6 @@ const isActive = computed(
 
 const isHoverable = computed(() => {
   return list.value.options.getRowRoute || list.value.options.onRowClick
-})
-
-const rowHeight = computed(() => {
-  if (typeof list.value.options.rowHeight === 'number') {
-    return `${list.value.options.rowHeight}px`
-  }
-  return list.value.options.rowHeight
-})
-
-const roundedClass = computed(() => {
-  if (!isSelected.value) return 'rounded'
-  const selections = [...list.value.selections]
-  let groups = list.value.rows[0]?.group
-    ? list.value.rows.map((k) => k.rows)
-    : [list.value.rows]
-
-  for (let rows of groups) {
-    let currentIndex = rows.findIndex((k) => k == props.row)
-    if (currentIndex === -1) continue
-    let atBottom = !selections.includes(rows[currentIndex + 1]?.name)
-    let atTop = !selections.includes(rows[currentIndex - 1]?.name)
-    return (atBottom ? 'rounded-b ' : '') + (atTop ? 'rounded-t' : '')
-  }
 })
 
 const onRowClick = (row, e) => {

@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-5 mt-2" v-if="!group.collapsed">
+  <div class="mb-5 mt-2 flex flex-col gap-[2px]" v-if="!group.collapsed">
     <slot>
       <ListRow v-for="row in group.rows" :key="row[list.rowKey]" :row="row" />
     </slot>
