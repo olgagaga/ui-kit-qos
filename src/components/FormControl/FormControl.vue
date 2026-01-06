@@ -36,6 +36,18 @@
       :id="id"
       v-bind="{ ...controlAttrs, size, variant }"
     />
+    <DatePicker
+      v-else-if="type === 'date'"
+      :id="id"
+      v-bind="{ ...controlAttrs, variant }"
+    >
+      <template #prefix v-if="$slots.prefix">
+        <slot name="prefix" />
+      </template>
+      <template #suffix v-if="$slots.suffix">
+        <slot name="suffix" />
+      </template>
+    </DatePicker>
     <TextInput
       v-else
       :id="id"
@@ -66,6 +78,7 @@ import { Select } from '../Select'
 import { Textarea } from '../Textarea'
 import { Checkbox } from '../Checkbox'
 import { Autocomplete } from '../Autocomplete'
+import DatePicker from '../DatePicker/DatePicker.vue'
 import FormLabel from '../FormLabel.vue'
 import type { FormControlProps } from './types'
 

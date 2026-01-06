@@ -1,46 +1,92 @@
 <template>
-  <div class="relative flex items-center">
-    <div
-      :class="[
-        'absolute inset-y-0 left-0 flex items-center',
-        textColor,
-        prefixClasses,
-      ]"
-      v-if="$slots.prefix"
-    >
-      <slot name="prefix"> </slot>
-    </div>
-    <div
-      v-if="placeholder"
-      v-show="!modelValue"
-      class="pointer-events-none absolute text-custom-input-text truncate w-full text-custom-input-header"
-      :class="[fontSizeClasses, paddingClasses]"
-    >
-      {{ placeholder }}
-    </div>
-    <select
-      :class="selectClasses"
-      :disabled="disabled"
-      :id="id"
-      :value="modelValue"
-      @change="handleChange"
-      v-bind="attrs"
-    >
-      <option
-        v-for="option in selectOptions"
-        :key="option.value"
-        :value="option.value"
-        :disabled="option.disabled || false"
-        :selected="modelValue === option.value"
+  <Popover
+    class="w-full"
+    v-model:show="isOpen"
+    placement="bottom-start"
+    :match-target-width="true"
+  >
+    <template #target="{ togglePopover }">
+      <button
+        :class="buttonClasses"
+        @click="togglePopover"
+        :disabled="disabled"
+        :id="id"
+        type="button"
       >
-        {{ option.label }}
-      </option>
-    </select>
-  </div>
+        <div class="flex items-center overflow-hidden">
+          <slot name="prefix" v-if="$slots.prefix" />
+          <span
+            class="truncate text-custom-input-header text-custom-input-active"
+            v-if="displayValue"
+          >
+            {{ displayValue }}
+          </span>
+          <span
+            :class="[
+              'text-custom-input-header',
+              isOpen || modelValue
+                ? 'text-custom-input-active'
+                : 'text-ink-gray-4',
+            ]"
+            v-else
+          >
+            {{ placeholder || '' }}
+          </span>
+          <slot name="suffix" v-if="$slots.suffix" />
+        </div>
+        <FeatherIcon
+          name="chevron-down"
+          :class="['h-7 w-7', iconColor]"
+          aria-hidden="true"
+        />
+      </button>
+    </template>
+    <template #body="{ isOpen: dropdownOpen }">
+      <div v-show="dropdownOpen">
+        <div
+          class="relative mt-1 rounded-[0.75rem] bg-white text-base shadow-custom-card-shadow-1"
+        >
+          <div
+            class="max-h-[15rem] overflow-y-auto p-[0.375rem] space-y-[0.375rem]"
+          >
+            <button
+              v-for="option in selectOptions"
+              :key="option.value"
+              type="button"
+              :disabled="option.disabled"
+              @click="selectOption(option)"
+              :class="[
+                'flex w-full cursor-pointer items-center justify-between rounded-[0.75rem] h-[2.438rem] px-[0.75rem] text-base text-custom-input-active transition-all',
+                {
+                  'bg-custom-blue text-custom-main font-semibold':
+                    modelValue === option.value,
+                  'hover:bg-custom-blue hover:text-custom-main hover:font-semibold':
+                    modelValue !== option.value && !option.disabled,
+                  'opacity-50 cursor-not-allowed': option.disabled,
+                },
+              ]"
+            >
+              <span class="flex-1 truncate text-left">
+                {{ option.label }}
+              </span>
+            </button>
+            <div
+              v-if="selectOptions.length === 0"
+              class="rounded-md px-2.5 py-1.5 text-base text-ink-gray-5"
+            >
+              No options available
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </Popover>
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots, useAttrs } from 'vue'
+import { computed, ref } from 'vue'
+import FeatherIcon from '../FeatherIcon.vue'
+import { Popover } from '../Popover'
 import type { SelectProps } from './types'
 
 defineOptions({
@@ -53,11 +99,13 @@ const props = withDefaults(defineProps<SelectProps>(), {
 })
 
 const emit = defineEmits(['update:modelValue'])
-const slots = useSlots()
-const attrs = useAttrs()
+const isOpen = ref(false)
 
-function handleChange(e: Event) {
-  emit('update:modelValue', (e.target as HTMLInputElement).value)
+function selectOption(option: { value: string; label: string; disabled?: boolean }) {
+  if (!option.disabled) {
+    emit('update:modelValue', option.value)
+    isOpen.value = false
+  }
 }
 
 const selectOptions = computed(() => {
@@ -76,69 +124,34 @@ const selectOptions = computed(() => {
   )
 })
 
-const textColor = computed(() => {
-  return props.disabled ? 'text-ink-gray-4' : 'text-ink-gray-8'
+const displayValue = computed(() => {
+  if (!props.modelValue) return ''
+  const selectedOption = selectOptions.value.find(
+    (opt) => opt.value === props.modelValue
+  )
+  return selectedOption?.label || props.modelValue
 })
 
-const fontSizeClasses = computed(() => {
-  return {
-    sm: 'text-base',
-    md: 'text-base',
-    lg: 'text-lg',
-    xl: 'text-xl',
-  }[props.size]
+const iconColor = computed(() => {
+  const hasValue = props.modelValue && props.modelValue !== ''
+  return hasValue || isOpen.value ? 'text-custom-input-active' : 'text-custom-input-text'
 })
 
-const paddingClasses = computed(() => {
-  return {
-    sm: 'pl-3 pr-8',
-    md: 'pl-3 pr-8',
-    lg: 'pl-3 pr-8',
-    xl: 'pl-3 pr-8',
-  }[props.size]
-})
+const buttonClasses = computed(() => {
+  const baseClasses =
+    'flex h-[2.188rem] w-full items-center justify-between gap-2 rounded-[0.625rem] px-3 py-1 transition-colors border'
+  const hasValue = props.modelValue && props.modelValue !== ''
 
-const selectClasses = computed(() => {
-  let sizeClasses = {
-    sm: 'rounded-[0.625rem] h-[2.188rem]',
-    md: 'rounded-[0.625rem] h-[2.188rem]',
-    lg: 'rounded-[0.625rem] h-10',
-    xl: 'rounded-[0.625rem] h-10',
-  }[props.size]
+  if (props.disabled) {
+    return `${baseClasses} bg-surface-gray-1 border-transparent text-ink-gray-4 cursor-not-allowed`
+  }
 
-  let variant = props.disabled ? 'disabled' : props.variant
-  let variantClasses = {
-    subtle:
-      'border bg-custom-input-fill border-transparent hover:bg-surface-gray-2 focus:bg-white focus:border-custom-input-text focus:ring-0 focus-visible:border-outline-gray-4',
-    outline:
-      'border border-custom-input-text bg-white hover:border-outline-gray-3 focus:border-outline-gray-4 focus:ring-0 focus-visible:ring-2 focus-visible:ring-outline-gray-3',
-    ghost:
-      'bg-transparent border-transparent hover:bg-surface-gray-3 focus:bg-surface-gray-3 focus:border-outline-gray-4 focus:ring-0 focus-visible:ring-2 focus-visible:ring-outline-gray-3',
-    disabled: [
-      'border',
-      props.variant !== 'ghost' ? 'bg-surface-gray-1' : '',
-      props.variant === 'outline'
-        ? 'border-outline-gray-2'
-        : 'border-transparent',
-    ],
-  }[variant]
-
-  return [
-    sizeClasses,
-    fontSizeClasses.value,
-    paddingClasses.value,
-    variantClasses,
-    textColor.value,
-    'transition-colors w-full py-0 truncate text-custom-input-header text-custom-input-active',
-  ]
-})
-
-let prefixClasses = computed(() => {
-  return {
-    sm: 'pl-2',
-    md: 'pl-2.5',
-    lg: 'pl-3',
-    xl: 'pl-3',
-  }[props.size]
+  if (isOpen.value || hasValue) {
+    // Active state (when opened or has selected value)
+    return `${baseClasses} bg-white border-custom-input-text focus:border-outline-gray-4`
+  } else {
+    // Static state (default)
+    return `${baseClasses} bg-custom-input-fill hover:bg-surface-gray-2 border-transparent`
+  }
 })
 </script>
