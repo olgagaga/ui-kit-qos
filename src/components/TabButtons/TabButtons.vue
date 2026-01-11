@@ -1,7 +1,7 @@
 <template>
   <RadioGroup v-model="value">
     <div
-      class="flex gap-2 rounded-[12px] bg-custom-blue h-[2.625rem] items-center px-1.5 py-1.5 text-sm"
+      class="flex gap-2 rounded-[12px] bg-white h-[2.625rem] items-center px-1.5 py-1.5 text-sm"
     >
       <RadioGroupOption
         as="div"
@@ -21,7 +21,7 @@
             button.disabled
               ? ''
               : checked
-                ? '!bg-surface-white shadow-button_shadow_bg !text-ink-gray-8'
+                ? '!bg-custom-blue shadow-button_shadow_bg !text-ink-gray-8'
                 : 'bg-transparent hover:bg-transparent active:bg-transparent !text-ink-gray-8',
           ]"
         >

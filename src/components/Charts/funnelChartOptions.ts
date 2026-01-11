@@ -4,6 +4,7 @@ import {
   SUBTITLE_HEIGHT,
   TITLE_BOTTOM,
   TITLE_HEIGHT,
+  DEFAULT_CHART_COLORS,
 } from './eChartOptions'
 import { formatValue } from './helpers'
 import { FunnelChartConfig } from './types'
@@ -18,19 +19,7 @@ export default function getFunnelChartOptions(config: FunnelChartConfig) {
   const values = data.map((row) => row[config.valueColumn])
   const total = values[0]
 
-  const blueGradient = [
-    '#2d87d6',
-    '#4393da',
-    '#589fdf',
-    '#6dace3',
-    '#83b8e7',
-    '#98c4eb',
-    '#c3dcf3',
-    '#d8e9f7',
-    '#edf5fc',
-    '#ffffff',
-  ]
-  const colors = blueGradient
+  const colors = config.colors || DEFAULT_CHART_COLORS
 
   return {
     animation: true,

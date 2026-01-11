@@ -108,6 +108,3 @@ export { Video }
 
 import Whatsapp from './components/Whatsapp.vue'
 export { Whatsapp }
-
-// Note: The following icons (Courses, Student, Programm, Practice) contain embedded PNG images
-// They are currently using placeholder SVG. Please replace with proper SVG paths from Figma.

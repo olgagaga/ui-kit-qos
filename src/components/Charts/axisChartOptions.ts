@@ -90,21 +90,19 @@ export default function useAxisChartOptions(config: AxisChartConfig) {
 }
 
 function getBarSeriesOptions(config: AxisChartConfig, series: BarSeriesConfig) {
-  const roundedCorners = config.swapXY ? [0, 2, 2, 0] : [2, 2, 0, 0]
-  const idx = config.series.findIndex((s) => s.name === series.name)
-  const lastBarSeriesIdx = config.series
-    .slice()
-    .reverse()
-    .findIndex((s) => s.type === 'bar')
+  const roundedCorners = config.swapXY ? [0, 12, 12, 0] : [12, 12, 0, 0]
 
-  const isLastBar = lastBarSeriesIdx === idx
+  // Find the last bar series in the array (topmost in stacked chart)
+  const barSeries = config.series.filter((s) => s.type === 'bar')
+  const isLastBarSeries = barSeries[barSeries.length - 1]?.name === series.name
 
   return {
     stack: config.stacked ? 'stack' : undefined,
     barMaxWidth: 60,
+    barGap: config.stacked ? '-100%' : '30%', // Make stacked bars stick together
     itemStyle: {
       borderRadius: config.stacked
-        ? isLastBar
+        ? isLastBarSeries
           ? roundedCorners
           : 0
         : roundedCorners,

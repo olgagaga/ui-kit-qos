@@ -10,6 +10,18 @@ export const TITLE_HEIGHT = 20
 export const SUBTITLE_HEIGHT = 18
 export const TITLE_BOTTOM = 24
 
+// Default color palette complementing custom-input (#7C98FF)
+export const DEFAULT_CHART_COLORS = [
+  '#7C98FF', // custom-input (primary blue)
+  '#9B7EFF', // purple/violet
+  '#5FC9CB', // teal
+  '#FF8BA0', // coral/pink
+  '#FFB76D', // amber
+  '#C4B5FD', // lavender
+  '#7DDBA5', // mint
+  '#FFB4A2', // peach
+]
+
 export default function useEchartsOptions(config: AxisChartConfig) {
   const title = config.title
   const subtitle = config.subtitle
@@ -28,7 +40,7 @@ export default function useEchartsOptions(config: AxisChartConfig) {
     animationDuration: 700,
     textStyle: { fontFamily: ['InterVar', 'sans-serif'] },
     title: getTitleOptions(title, subtitle),
-    color: config.colors,
+    color: config.colors || DEFAULT_CHART_COLORS,
     grid: {
       left: '1%',
       right: config.swapXY ? '2.5%' : '1.5%',
@@ -110,7 +122,7 @@ export default function useEchartsOptions(config: AxisChartConfig) {
       },
       textStyle: {
         padding: [0, 0, 0, -5],
-        color: 'var(--ink-gray-8)',
+        color: '#AFAFAF',
       },
       icon: 'circle',
       pageIcons: {
@@ -119,11 +131,11 @@ export default function useEchartsOptions(config: AxisChartConfig) {
           'M 12 27 h -2 c -0.386 0 -0.738 -0.223 -0.904 -0.572 s -0.115 -0.762 0.13 -1.062 L 17.708 15 L 9.226 4.633 c -0.245 -0.299 -0.295 -0.712 -0.13 -1.062 S 9.614 3 10 3 h 2 c 0.3 0 0.584 0.135 0.774 0.367 l 9 11 c 0.301 0.369 0.301 0.898 0 1.267 l -9 11 C 12.584 26.865 12.3 27 12 27 Z',
         ],
       },
-      pageIconColor: 'var(--ink-gray-6)',
-      pageInactiveColor: 'var(--ink-gray-4)',
+      pageIconColor: '#AFAFAF',
+      pageInactiveColor: '#AFAFAF',
       pageIconSize: 10,
       pageTextStyle: {
-        color: 'var(--ink-gray-6)',
+        color: '#AFAFAF',
       },
       animationDurationUpdate: 300,
     },
@@ -139,16 +151,16 @@ export function getTitleOptions(title: string, subtitle?: string) {
     padding: 0,
     itemGap: -3,
     textStyle: {
-      fontSize: 14,
-      fontWeight: 500,
+      fontSize: 20,
+      fontWeight: 600,
       lineHeight: 24,
-      color: 'var(--ink-gray-8)',
+      color: '#000000',
     },
     subtextStyle: {
       fontSize: 13,
       fontWeight: 400,
       lineHeight: 20,
-      color: 'var(--ink-gray-6)',
+      color: '#AFAFAF',
     },
   }
 }
@@ -171,7 +183,7 @@ function getXAxisOptions(config: AxisChartConfig) {
           padding: [0, 0, 26, 0],
           backgroundColor: 'var(--surface-white)',
           borderColor: 'var(--surface-white)',
-          color: 'var(--ink-gray-8)',
+          color: '#AFAFAF',
           borderWidth: 4,
         },
         splitLine: {
@@ -179,6 +191,7 @@ function getXAxisOptions(config: AxisChartConfig) {
           width: 1,
           lineStyle: {
             color: 'var(--ink-gray-3)',
+            type: [1, 2], // 2px dot, 8px space
           },
         },
         axisLine: {
@@ -196,6 +209,7 @@ function getXAxisOptions(config: AxisChartConfig) {
           show: true,
           hideOverlap: true,
           margin: 8,
+          color: '#AFAFAF',
           formatter: function (value: number) {
             return formatValue(value, 1, true)
           },
@@ -221,6 +235,7 @@ function getXAxisOptions(config: AxisChartConfig) {
           showMaxLabel:
             config.xAxis.type === 'category' || config.xAxis.type === 'value',
           margin: 8,
+          color: '#AFAFAF',
         },
       }
 
@@ -249,6 +264,7 @@ function getYAxisOptions(config: AxisChartConfig) {
           show: true,
           hideOverlap: true,
           margin: 6,
+          color: '#AFAFAF',
         },
       }
     : {
@@ -266,7 +282,7 @@ function getYAxisOptions(config: AxisChartConfig) {
           padding: [0, 0, 0, -2],
           backgroundColor: 'var(--surface-white)',
           borderColor: 'var(--surface-white)',
-          color: 'var(--ink-gray-8)',
+          color: '#AFAFAF',
           borderWidth: 4,
         },
         splitLine: {
@@ -274,6 +290,7 @@ function getYAxisOptions(config: AxisChartConfig) {
           width: 1,
           lineStyle: {
             color: 'var(--ink-gray-3)',
+            type: [2, 8], // 2px dot, 8px space
           },
         },
         axisLine: {
@@ -288,6 +305,7 @@ function getYAxisOptions(config: AxisChartConfig) {
           show: true,
           hideOverlap: true,
           margin: 8,
+          color: '#AFAFAF',
           formatter: function (value: number) {
             return formatValue(value, 1, true)
           },
@@ -316,7 +334,7 @@ function getYAxisOptions(config: AxisChartConfig) {
       padding: [0, 5, 0, 0],
       backgroundColor: 'var(--surface-white)',
       borderColor: 'var(--surface-white)',
-      color: 'var(--ink-gray-8)',
+      color: '#AFAFAF',
     },
     nameGap: 6,
     splitLine: {
@@ -324,6 +342,7 @@ function getYAxisOptions(config: AxisChartConfig) {
       width: 1,
       lineStyle: {
         color: 'var(--ink-gray-3)',
+        type: 'dotted',
       },
     },
     axisLine: {
@@ -338,10 +357,10 @@ function getYAxisOptions(config: AxisChartConfig) {
       show: true,
       hideOverlap: true,
       margin: 8,
+      color: '#AFAFAF',
       formatter: function (value: number) {
         return formatValue(value, 1, true)
       },
-      // color: '#000',
     },
     min: config.y2Axis?.yMin,
     max: config.y2Axis?.yMax,
