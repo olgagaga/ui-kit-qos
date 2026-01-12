@@ -55,7 +55,7 @@
       <!-- Percentage Text -->
       <span
         v-if="props.showPercentage && !props.intervals"
-        class="absolute right-2 text-[10px] font-medium text-custom-main"
+        class="absolute right-2 text-[10px] font-medium text-custom-main bg-white px-1 rounded-lg opacity-70"
       >
         {{ props.value }}%
       </span>
