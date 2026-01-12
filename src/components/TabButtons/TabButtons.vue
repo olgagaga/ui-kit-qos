@@ -15,7 +15,7 @@
           @click="button.onClick"
           v-bind="button"
           theme="gray"
-          class="!h-[30px] text-custom-button px-[10px] py-[6px] rounded-[12px]"
+          class="!h-[30px] text-custom-button text-black px-[10px] py-[6px] rounded-[12px]"
           :class="[
             active ? 'ring-outline-gray-2 focus-visible:ring' : '',
             button.disabled
