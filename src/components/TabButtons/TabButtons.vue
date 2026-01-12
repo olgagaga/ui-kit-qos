@@ -28,7 +28,7 @@
           <RadioGroupLabel
             as="span"
             class="flex h-4 items-center"
-            v-show="button.label && !button.hideLabel"
+            v-show="shouldShowLabel(button, checked)"
             >{{ button.label }}</RadioGroupLabel
           >
         </Button>
@@ -68,6 +68,35 @@ export default {
       set(value) {
         this.$emit('update:modelValue', value)
       },
+    },
+  },
+  methods: {
+    shouldShowLabel(button, checked) {
+      // If hideLabel is explicitly set, respect it
+      if (button.hideLabel !== undefined) {
+        return !button.hideLabel
+      }
+
+      // If no icon, always show label
+      if (!button.icon && !button.iconLeft) {
+        return button.label !== undefined
+      }
+
+      // If icon exists, check showLabel option
+      // 'always' - always show label (default for backwards compatibility)
+      // 'active' - only show label when tab is active/checked
+      // 'never' - never show label (icon only)
+      const showLabel = button.showLabel ?? 'always'
+
+      if (showLabel === 'always') {
+        return button.label !== undefined
+      } else if (showLabel === 'active') {
+        return checked && button.label !== undefined
+      } else if (showLabel === 'never') {
+        return false
+      }
+
+      return button.label !== undefined
     },
   },
 }
