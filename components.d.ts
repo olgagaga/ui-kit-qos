@@ -18,6 +18,7 @@ declare module 'vue' {
     ArrowGoBackLine: typeof import('./src/components/TextEditor/icons/arrow-go-back-line.vue')['default']
     ArrowGoForwardLine: typeof import('./src/components/TextEditor/icons/arrow-go-forward-line.vue')['default']
     ArrowUp: typeof import('./src/components/icons/components/ArrowUp.vue')['default']
+    Assignment: typeof import('./src/components/icons/components/Assignment.vue')['default']
     Autocomplete: typeof import('./src/components/Autocomplete/Autocomplete.vue')['default']
     'Autocomplete.story': typeof import('./src/components/Autocomplete/Autocomplete.story.vue')['default']
     Avatar: typeof import('./src/components/Avatar/Avatar.vue')['default']

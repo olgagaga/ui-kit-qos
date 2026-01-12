@@ -10,6 +10,9 @@ export { ArrowDown }
 import ArrowUp from './components/ArrowUp.vue'
 export { ArrowUp }
 
+import Assignment from './components/Assignment.vue'
+export { Assignment }
+
 import Book from './components/Book.vue'
 export { Book }
 
