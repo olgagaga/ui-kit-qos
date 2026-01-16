@@ -10,7 +10,7 @@ const currentTab3 = ref('settings')
 
 <template>
   <Story :layout="{ type: 'grid', width: '80%' }">
-    <Variant title="Tab Buttons Without Icons">
+    <Variant title="White Variant (Default)">
       <div class="flex">
         <TabButtons
           :buttons="[
@@ -18,6 +18,21 @@ const currentTab3 = ref('settings')
             { label: 'Скоро Анонс', value: 'created' },
           ]"
           v-model="currentTab"
+          variant="white"
+          class="p-5"
+        />
+      </div>
+    </Variant>
+
+    <Variant title="Blue Variant">
+      <div class="flex">
+        <TabButtons
+          :buttons="[
+            { label: 'Новые', value: 'mytasks' },
+            { label: 'Скоро Анонс', value: 'created' },
+          ]"
+          v-model="currentTab"
+          variant="blue"
           class="p-5"
         />
       </div>

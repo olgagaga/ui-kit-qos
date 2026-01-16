@@ -1,7 +1,8 @@
 <template>
   <RadioGroup v-model="value">
     <div
-      class="flex gap-2 rounded-[12px] bg-custom-blue h-[2.625rem] items-center px-1.5 py-1.5 text-sm"
+      class="flex gap-2 rounded-[12px] h-[2.625rem] items-center px-1.5 py-1.5 text-sm"
+      :class="variant === 'blue' ? 'bg-custom-blue' : 'bg-white'"
     >
       <RadioGroupOption
         as="div"
@@ -16,14 +17,7 @@
           v-bind="button"
           theme="gray"
           class="!h-[30px] text-custom-button px-[10px] py-[6px] rounded-[12px]"
-          :class="[
-            active ? 'ring-outline-gray-2 focus-visible:ring' : '',
-            button.disabled
-              ? ''
-              : checked
-                ? '!bg-white shadow-button_shadow_bg !text-black'
-                : 'bg-transparent hover:bg-transparent active:bg-transparent !text-black',
-          ]"
+          :class="getButtonClasses(active, checked, button.disabled)"
         >
           <RadioGroupLabel
             as="span"
@@ -51,6 +45,11 @@ export default {
     modelValue: {
       type: [String, Boolean, Number],
     },
+    variant: {
+      type: String,
+      default: 'white',
+      validator: (value) => ['white', 'blue'].includes(value),
+    },
   },
   emits: ['update:modelValue'],
   components: {
@@ -71,6 +70,33 @@ export default {
     },
   },
   methods: {
+    getButtonClasses(active, checked, disabled) {
+      const baseClasses = [
+        active ? 'ring-outline-gray-2 focus-visible:ring' : '',
+      ]
+
+      if (disabled) {
+        return baseClasses
+      }
+
+      if (this.variant === 'blue') {
+        // Blue variant: blue background, white active buttons with black text
+        return [
+          ...baseClasses,
+          checked
+            ? '!bg-white shadow-button_shadow_bg !text-black'
+            : 'bg-transparent hover:bg-transparent active:bg-transparent !text-black',
+        ]
+      } else {
+        // White variant (default): white background, blue active buttons with black text
+        return [
+          ...baseClasses,
+          checked
+            ? '!bg-custom-blue shadow-button_shadow_bg !text-black'
+            : 'bg-transparent hover:bg-transparent active:bg-transparent !text-ink-gray-8',
+        ]
+      }
+    },
     shouldShowLabel(button, checked) {
       // If hideLabel is explicitly set, respect it
       if (button.hideLabel !== undefined) {
