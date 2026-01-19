@@ -2,28 +2,10 @@
   <div class="flex min-w-0 items-center">
     <template v-if="dropdownItems.length">
       <Dropdown class="h-7" :options="dropdownItems">
-        <Button variant="ghost">
-          <template #icon>
-            <svg
-              class="w-4 text-ink-gray-5"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="12" r="1" />
-              <circle cx="19" cy="12" r="1" />
-              <circle cx="5" cy="12" r="1" />
-            </svg>
-          </template>
-        </Button>
+        <button class="flex items-center rounded px-2 py-1 text-custom-black hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-outline-gray-3" style="font-size: 13px; font-weight: 400;">
+          ...
+        </button>
       </Dropdown>
-      <Previous :size="16" color="#1C1C1C" class="pr-2" />
     </template>
     <div
       class="flex min-w-0 items-center overflow-hidden text-ellipsis whitespace-nowrap"
@@ -64,7 +46,6 @@ import { useWindowSize } from '@vueuse/core'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { Dropdown } from '../Dropdown'
-import { Button } from '../Button'
 import { Previous } from '../icons/icons'
 import type { BreadcrumbsProps } from './types'
 
@@ -91,8 +72,6 @@ const dropdownItems = computed(() => {
       }
     }
     return {
-      ...item,
-      icon: null,
       label: item.label,
       onClick,
     }

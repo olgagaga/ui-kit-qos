@@ -10,7 +10,7 @@
     <path
       d="M1 12L8 5L15 12"
       :stroke="color"
-      stroke-width="1.5"
+      :stroke-width="strokeWidth"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
@@ -22,12 +22,14 @@ interface IconProps {
   size?: string | number
   color?: string
   class?: string
+  strokeWidth?: string | number
 }
 
 const props = withDefaults(defineProps<IconProps>(), {
   size: '24',
   color: 'currentColor',
   class: '',
+  strokeWidth: '1.5',
 })
 
 const className = props.class

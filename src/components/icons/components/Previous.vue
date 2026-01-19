@@ -7,7 +7,7 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M10 13L5 8.5L10 4" :stroke="color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M10 13L5 8.5L10 4" :stroke="color" :stroke-width="strokeWidth" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </template>
 
@@ -16,12 +16,14 @@ interface IconProps {
   size?: string | number
   color?: string
   class?: string
+  strokeWidth?: string | number
 }
 
 const props = withDefaults(defineProps<IconProps>(), {
   size: '24',
   color: 'currentColor',
   class: '',
+  strokeWidth: '1.5',
 })
 
 const className = props.class
