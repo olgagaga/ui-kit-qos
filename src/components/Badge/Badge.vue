@@ -32,38 +32,38 @@ const props = withDefaults(defineProps<BadgeProps>(), {
 const classes = computed(() => {
   let solidClasses = {
     gray: 'text-ink-white bg-surface-gray-7',
-    blue: 'text-ink-blue-1 bg-surface-blue-2',
+    blue: 'text-white bg-custom-input',
     green: 'text-ink-green-1 bg-surface-green-3',
-    orange: 'text-ink-amber-1 bg-surface-amber-2',
-    red: 'text-ink-red-1 bg-surface-red-4',
+    orange: 'text-white  bg-custom-orange',
+    red: 'text-white bg-custom-error',
     main: 'text-white bg-custom-main'
   }[props.theme]
 
   let subtleClasses = {
-    gray: 'text-ink-gray-6 bg-surface-gray-2',
-    blue: 'text-ink-blue-2 bg-surface-blue-1',
-    green: 'text-ink-green-3 bg-surface-green-2',
+    gray: 'text-custom-black bg-custom-inactive',
+    blue: 'text-custom-input bg-custom-blue',
+    green: 'text-custom-correct bg-surface-green-2',
     orange: 'text-ink-amber-3 bg-surface-amber-1',
-    red: 'text-ink-red-4 bg-surface-red-1',
-    main: 'text-custom-input-active bg-custom-blue',
+    red: 'text-custom-error-dark bg-surface-red-1',
+    main: 'text-custom-main bg-custom-blue',
   }[props.theme]
 
   let outlineClasses = {
-    gray: 'text-ink-gray-6 bg-transparent border border-outline-gray-1',
-    blue: 'text-ink-blue-2 bg-transparent border border-outline-blue-1',
-    green: 'text-ink-green-3 bg-transparent border border-outline-green-2',
+    gray: 'text-custom-black bg-transparent border border-custom-inactive-dark',
+    blue: 'text-custom-input bg-transparent border border-custom-blue-dark',
+    green: 'text-custom-correct bg-transparent border border-outline-green-2',
     orange: 'text-ink-amber-3 bg-transparent border border-outline-amber-2',
-    red: 'text-ink-red-4 bg-transparent border border-outline-red-2',
-    main: 'text-custom-input-active bg-transparent border border-outline-custom-main'
+    red: 'text-custom-error-dark bg-transparent border border-custom-error',
+    main: 'text-custom-main bg-transparent border border-custom-input'
   }[props.theme]
 
   let ghostClasses = {
-    gray: 'text-ink-gray-6 bg-transparent',
-    blue: 'text-ink-blue-2 bg-transparent',
-    green: 'text-ink-green-3 bg-transparent',
+    gray: 'text-custom-black bg-transparent',
+    blue: 'text-custom-input bg-transparent',
+    green: 'text-custom-correct bg-transparent',
     orange: 'text-ink-amber-3 bg-transparent',
-    red: 'text-ink-red-4 bg-transparent',
-    main: 'text-custom-input-active bg-transparent'
+    red: 'text-custom-error-dark bg-transparent',
+    main: 'text-custom-main bg-transparent'
   }[props.theme]
 
   let variantClasses = {
