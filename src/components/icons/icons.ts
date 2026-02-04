@@ -1,8 +1,14 @@
 // This file exports all icon components
 // Add your icon imports here as you create them
 
+import AnkiCards from './components/AnkiCards.vue'
+export { AnkiCards }
+
 import Apps from './components/Apps.vue'
 export { Apps }
+
+import Assignments from './components/Assignments.vue'
+export { Assignments }
 
 import ArrowDown from './components/ArrowDown.vue'
 export { ArrowDown }
@@ -25,6 +31,9 @@ export { Check }
 import Close from './components/Close.vue'
 export { Close }
 
+import CertificatedMembers from './components/CertificatedMembers.vue'
+export { CertificatedMembers }
+
 import Courses from './components/Courses.vue'
 export { Courses }
 
@@ -43,6 +52,9 @@ export { Enter }
 import Filter from './components/Filter.vue'
 export { Filter }
 
+import Forms from './components/Forms.vue'
+export { Forms }
+
 import Global from './components/Global.vue'
 export { Global }
 
@@ -51,6 +63,9 @@ export { Google }
 
 import Groups from './components/Groups.vue'
 export { Groups }
+
+import Jobs from './components/Jobs.vue'
+export { Jobs }
 
 import Moon from './components/Moon.vue'
 export { Moon }
@@ -93,6 +108,9 @@ export { Star }
 
 import Starai from './components/Starai.vue'
 export { Starai }
+
+import Statistics from './components/Statistics.vue'
+export { Statistics }
 
 import Student from './components/Student.vue'
 export { Student }
